@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Client Intelligence Brief — {{DATE_RANGE}}</title>
+  <style>
+    /* Self-contained dashboard styles — agent fills {{PLACEHOLDERS}} */
+    :root {
+      --bg: #f4f6f9;
+      --surface: #ffffff;
+      --text: #111827;
+      --muted: #4b5563;
+      --light: #9ca3af;
+      --border: #e5e7eb;
+      --link: #1d4ed8;
+      --link-hover: #1e40af;
+      --tier1-bg: #eff6ff;
+      --tier1-border: #3b82f6;
+      --urgent: #b91c1c;
+      --urgent-bg: #fef2f2;
+      --watch: #b45309;
+      --watch-bg: #fffbeb;
+      --gates: #0d9488;
+      --gavi: #0284c7;
+      --stjude: #7c3aed;
+      --loph: #ca8a04;
+      --rwjf: #059669;
+      --imm: #4f46e5;
+      --gph: #be123c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      font-size: 15px;
+    }
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+    header { margin-bottom: 1.75rem; padding-bottom: 1.25rem; border-bottom: 2px solid var(--border); }
+    header h1 { font-size: 1.85rem; font-weight: 700; letter-spacing: -0.02em; }
+    .meta { color: var(--muted); font-size: 0.9rem; margin-top: 0.35rem; }
+    .meta span + span::before { content: " · "; }
+    section { margin-bottom: 2rem; }
+    .section-label {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--light); margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-size: 1.15rem; font-weight: 700; margin-bottom: 0.85rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .tier-badge {
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; padding: 0.15rem 0.5rem; border-radius: 3px;
+      background: var(--tier1-bg); color: var(--tier1-border);
+    }
+    a.headline {
+      color: var(--text); text-decoration: none; font-weight: 600;
+      border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s;
+    }
+    a.headline:hover { color: var(--link); border-bottom-color: var(--link); }
+    a.source { color: var(--link); font-size: 0.8rem; text-decoration: none; }
+    a.source:hover { text-decoration: underline; }
+    .glance { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .glance-item {
+      display: grid; grid-template-columns: 72px 1fr; gap: 0.85rem;
+      padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--border); align-items: start;
+    }
+    .glance-item:last-child { border-bottom: none; }
+    .priority {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; padding: 0.2rem 0.5rem; border-radius: 4px; text-align: center;
+    }
+    .priority.urgent { background: var(--urgent-bg); color: var(--urgent); }
+    .priority.watch { background: var(--watch-bg); color: var(--watch); }
+    .priority.info { background: #eff6ff; color: #1d4ed8; }
+    .global-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden;
+    }
+    .card.tier1 { border-top: 3px solid var(--tier1-border); }
+    .card-header {
+      padding: 0.9rem 1.15rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.65rem;
+    }
+    .card-accent { width: 4px; align-self: stretch; border-radius: 2px; flex-shrink: 0; min-height: 2rem; }
+    .card-header h3 { font-size: 1rem; font-weight: 700; }
+    .card-header .sub { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
+    .card-body { padding: 0.25rem 1.15rem 1rem; }
+    .subsection { margin-top: 0.85rem; }
+    .subsection h4 {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--light);
+      padding-bottom: 0.35rem; margin-bottom: 0.25rem; border-bottom: 1px solid #f3f4f6;
+    }
+    .item { padding: 0.75rem 0; border-bottom: 1px solid #f3f4f6; }
+    .item:last-child { border-bottom: none; }
+    .item-summary { font-size: 0.88rem; color: var(--muted); margin: 0.3rem 0 0.45rem; }
+    .item-meta { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
+    .tag {
+      background: #f3f4f6; color: var(--muted); font-size: 0.72rem; font-weight: 600;
+      padding: 0.12rem 0.45rem; border-radius: 3px;
+    }
+    .status {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .status.confirmed { color: #047857; }
+    .status.developing { color: var(--watch); }
+    .client-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .empty { font-size: 0.88rem; color: var(--light); font-style: italic; padding: 0.5rem 0; }
+    footer {
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border);
+      font-size: 0.8rem; color: var(--light); text-align: center;
+    }
+    @media (max-width: 800px) {
+      .global-row, .client-grid { grid-template-columns: 1fr; }
+      .glance-item { grid-template-columns: 1fr; gap: 0.4rem; }
+    }
+    @media print {
+      body { background: white; font-size: 11px; }
+      .wrap { padding: 0; }
+      a.headline, a.source { color: inherit; }
+      .card { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Weekly Client Intelligence Brief</h1>
+      <p class="meta">
+        <span>Reporting period: {{DATE_RANGE}}</span>
+        <span>Generated: {{GENERATED_AT}}</span>
+      </p>
+    </header>
+
+    <!-- AT A GLANCE: {{GLANCE_ITEMS}} -->
+    <section>
+      <div class="section-label">Start here</div>
+      <h2>At a Glance</h2>
+      <div class="glance">{{GLANCE_HTML}}</div>
+    </section>
+
+    <!-- GLOBAL TOPICS -->
+    <section>
+      <div class="section-label">Tier 1 priority</div>
+      <h2>Global Topics <span class="tier-badge">Priority</span></h2>
+      <div class="global-row">{{GLOBAL_TOPICS_HTML}}</div>
+    </section>
+
+    <!-- CLIENT UPDATES -->
+    <section>
+      <div class="section-label">By client</div>
+      <h2>Client Updates</h2>
+      <div class="client-grid">{{CLIENT_CARDS_HTML}}</div>
+    </section>
+
+    <footer>{{FOOTER_TEXT}}</footer>
+  </div>
+</body>
+</html>

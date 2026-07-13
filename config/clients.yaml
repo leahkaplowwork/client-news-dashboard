@@ -1,0 +1,178 @@
+# Client and topic configuration for weekly dashboard research
+
+reporting_window_days: 7
+
+# Display priority: higher sections appear first in At a Glance and get visual emphasis
+priority_tiers:
+  tier_1:
+    - immunization_pulse
+    - global_public_health
+    - gates_foundation
+    - gavi
+  tier_2:
+    - louisiana_oph
+    - alsac_st_jude
+    - rwjf
+
+global_topics:
+  immunization_pulse:
+    title: "Immunization Pulse"
+    subtitle: "Pipeline · coverage · outbreaks · partners · donors"
+    priority: 1
+    search_queries:
+      - "global immunization coverage trends vaccine"
+      - "polio eradication funding GPEI Pakistan Afghanistan"
+      - "Gavi board replenishment immunization strategy"
+      - "measles outbreak vaccination campaign"
+      - "WHO vaccine prequalification pipeline"
+    priority_sources:
+      - "who.int"
+      - "gavi.org"
+      - "polioeradication.org"
+      - "unicef.org"
+      - "devex.com"
+
+  global_public_health:
+    title: "Global Public Health"
+    subtitle: "Major developments · funding · emergencies"
+    priority: 1
+    search_queries:
+      - "WHO public health emergency PHEIC"
+      - "global health outbreak emergency"
+      - "Global Fund health systems funding"
+      - "Africa CDC health emergency"
+    priority_sources:
+      - "who.int"
+      - "afro.who.int"
+      - "theglobalfund.org"
+      - "africacdc.org"
+
+clients:
+  gates_foundation:
+    name: "Gates Foundation"
+    subtitle: "Immunization · polio · health delivery"
+    color: "#0d9488"
+    priority: 1
+    internal_signals:
+      - leadership moves
+      - strategy shifts
+      - GPEI / polio program engagement
+      - health delivery grantmaking
+    external_signals:
+      - polio eradication funding
+      - immunization delivery systems
+      - Gavi partnership dynamics
+      - zero-dose children
+    search_queries:
+      - "Gates Foundation polio GPEI delegation"
+      - "Gates Foundation Chris Elias immunization"
+      - "Gates Foundation health delivery global programs"
+      - "Bill Melinda Gates Foundation strategy global health"
+    priority_sources:
+      - "gatesfoundation.org"
+      - "polioeradication.org"
+      - "emro.who.int"
+      - "devex.com"
+
+  gavi:
+    name: "Gavi"
+    subtitle: "Vaccine alliance · replenishment · country programs"
+    color: "#0284c7"
+    priority: 1
+    internal_signals:
+      - board decisions
+      - Gavi 6.0 strategy implementation
+      - replenishment and IFFIm
+      - country program launches
+      - AVMA African manufacturing
+      - supply chain strategy
+    external_signals:
+      - immunization donor landscape
+      - polio program integration
+      - fragile settings financing
+    search_queries:
+      - "Gavi board meeting Gavi 6.0 July 2026"
+      - "Gavi supply chain strategy immunization"
+      - "Gavi AVMA African vaccine manufacturing"
+      - "Gavi replenishment donor pledging"
+    priority_sources:
+      - "gavi.org"
+      - "iffim.org"
+      - "devex.com"
+
+  alsac_st_jude:
+    name: "ALSAC / St. Jude"
+    subtitle: "Fundraising · organizational leadership"
+    color: "#7c3aed"
+    priority: 2
+    curation_note: >
+      Prioritize ALSAC fundraising, board, and executive moves. Include St. Jude only for
+      major organizational news (CEO transition, major new program, board governance) —
+      exclude routine clinical trial or research micro-updates.
+    internal_signals:
+      - ALSAC fundraising campaigns
+      - ALSAC leadership and board
+      - major donor milestones
+      - St. Jude CEO or major program announcements only
+    external_signals:
+      - childhood cancer policy (major only)
+      - nonprofit fundraising sector trends
+    search_queries:
+      - "ALSAC St Jude fundraising board leadership"
+      - "ALSAC CEO Ike Anand"
+      - "St Jude CEO leadership transition"
+      - "St Jude strategic plan fundraising"
+    priority_sources:
+      - "stjude.org/media-resources/news-releases/2026-fundraising-news"
+      - "alsac.stjude.org"
+      - "thenonprofittimes.com"
+
+  louisiana_oph:
+    name: "Louisiana Office of Public Health"
+    subtitle: "PHUs · WIC · organizational change"
+    color: "#ca8a04"
+    priority: 2
+    curation_note: >
+      Focus on organizational changes, parish health unit (PHU) operations, and WIC program
+      oversight — not general state health news unless it directly affects OPH structure or PHU/WIC delivery.
+    internal_signals:
+      - OPH organizational restructuring
+      - PHU operations and staffing
+      - WIC clinic oversight and participation
+      - LDH responses to legislative audits
+    external_signals:
+      - federal WIC/USDA policy affecting Louisiana
+      - CDC guidance for state PHUs
+    search_queries:
+      - "Louisiana Office of Public Health parish health unit"
+      - "Louisiana WIC clinic outreach LDH audit"
+      - "Louisiana Department of Health WIC participation PHU"
+      - "Louisiana public health unit organizational"
+    priority_sources:
+      - "ldh.la.gov"
+      - "lla.state.la.us"
+      - "theadvocate.com"
+      - "americanpress.com"
+
+  rwjf:
+    name: "Robert Wood Johnson Foundation"
+    subtitle: "Health equity · Medicaid · nursing workforce · SDOH"
+    color: "#059669"
+    priority: 2
+    internal_signals:
+      - grant announcements
+      - research agenda updates
+      - leadership changes
+      - Culture of Health initiatives
+    external_signals:
+      - Medicaid policy CMS
+      - nursing workforce legislation
+      - health equity research
+    search_queries:
+      - "Robert Wood Johnson Foundation grant health equity"
+      - "RWJF HERA health equity research"
+      - "RWJF nursing workforce initiative"
+    priority_sources:
+      - "rwjf.org"
+      - "nam.edu"
+      - "kff.org"
