@@ -60,6 +60,11 @@ Each news item must include:
 
 1. `dashboards/weekly-YYYY-MM-DD.html` — archive
 2. `dashboards/latest.html` — overwrite each run
+3. **Commit and push to `main`** after every run (required — Leah views via GitHub Pages)
+
+Live view URL (bookmark this):
+
+**https://leahkaplowwork.github.io/client-news-dashboard/**
 
 ## HTML requirements
 
@@ -72,6 +77,6 @@ Each news item must include:
 
 ## Do not
 
-- Commit to git unless explicitly asked.
+- Skip commit/push — Leah relies on the live Pages URL updating automatically.
 - Fabricate news or URLs.
 - Use aggregator links when a primary source is available.

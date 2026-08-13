@@ -1,76 +1,123 @@
 # Client News Dashboard
 
-Weekly intelligence brief covering five client relationships and key global health topics. Refreshed by Cursor Automation every Sunday at 6:00 PM.
+Weekly intelligence brief for five client relationships + global health topics.
 
-## Open the dashboard
+---
 
-**Each week, double-click this file in Windows Explorer:**
+## Fix 404 (run once now)
+
+The bookmark link 404s until these **local-only** files are pushed and Pages is turned on:
+
+- `index.html`
+- `.nojekyll`
+- `.github/workflows/deploy-pages.yml`
+
+**Fastest fix** — open PowerShell in this folder and run:
+
+```powershell
+cd "C:\Users\Leah Kaplow\.cursor\projects\C-Users-Leah-Kaplow-AppData-Local-Temp-7acbefa7-5736-4c13-b1e8-0ccd4e76158b\client-news-dashboard"
+.\scripts\enable-pages.ps1
+```
+
+Or run manually:
+
+```powershell
+cd "C:\Users\Leah Kaplow\.cursor\projects\C-Users-Leah-Kaplow-AppData-Local-Temp-7acbefa7-5736-4c13-b1e8-0ccd4e76158b\client-news-dashboard"
+git add index.html .nojekyll .github/workflows/deploy-pages.yml README.md scripts/enable-pages.ps1
+git commit -m "Enable GitHub Pages delivery via Actions workflow"
+git push origin main
+gh api --method POST repos/leahkaplowwork/client-news-dashboard/pages -f build_type=workflow
+gh workflow run deploy-pages.yml --repo leahkaplowwork/client-news-dashboard
+```
+
+Then in GitHub: **Settings → Pages → Build and deployment → Source → GitHub Actions**  
+(https://github.com/leahkaplowwork/client-news-dashboard/settings/pages)
+
+Wait ~2 minutes after the workflow finishes (check **Actions** tab).
+
+**Still 404?** If the repo is **private** on a free GitHub plan, public Pages will not work. Either:
+
+- Make the repo public (recommended — this is only public news links):  
+  `gh repo edit leahkaplowwork/client-news-dashboard --visibility public`
+- Or use GitHub Pro and set Pages visibility to public in repo Settings → Pages
+
+---
+
+## One link to view (bookmark this)
+
+### https://leahkaplowwork.github.io/client-news-dashboard/
+
+Open that URL anytime — it always shows the latest brief.  
+Updated automatically every Sunday after the Cursor Automation runs.
+
+No git pull. No hunting for files.
+
+---
+
+## First-time setup (one time only)
+
+If you already ran the 404 fix above, skip this section.
+
+### 1. Push deployment files to GitHub
+
+Run `.\scripts\enable-pages.ps1` or the manual commands in **Fix 404**.
+
+### 2. Turn on GitHub Pages
+
+1. Go to **https://github.com/leahkaplowwork/client-news-dashboard/settings/pages**
+2. Under **Build and deployment** → **Source**, choose **GitHub Actions**
+3. Save (no other settings needed — the workflow is already in the repo)
+
+After the first push, wait ~2 minutes, then open the bookmark link above.
+
+### 3. Update Cursor Automation instructions
+
+In **Automations → Weekly Client News Dashboard → Instructions**, paste the text from [`automation/weekly-dashboard.md`](automation/weekly-dashboard.md) — especially the **commit and push** steps.
+
+Or add this line at the end:
 
 ```
-dashboards/latest.html
+After updating the HTML files, commit and push to main with message "Weekly dashboard update YYYY-MM-DD".
+Leah views the live site at https://leahkaplowwork.github.io/client-news-dashboard/
 ```
 
-Or drag it into Chrome, Edge, or Firefox. Every headline links to its primary source.
-
-Archived weeks: `dashboards/weekly-YYYY-MM-DD.html`
-
-## Priority tiers
-
-**Tier 1 (lead the brief):** Immunization Pulse, Global Public Health, Gates Foundation, Gavi
-
-**Tier 2:** Louisiana OPH (PHUs, WIC, org change), ALSAC/St. Jude (fundraising; St. Jude only for major org news), RWJF
+---
 
 ## Clients covered
 
 | Client | Focus |
 |--------|-------|
 | Gates Foundation | Immunization, polio, health delivery |
-| Gavi | Gavi 6.0, replenishment, country programs, supply chain |
-| ALSAC / St. Jude | ALSAC fundraising & board; St. Jude CEO/major programs only |
-| Louisiana OPH | PHU operations, WIC oversight, organizational change |
+| Gavi | Gavi 6.0, replenishment, country programs |
+| ALSAC / St. Jude | ALSAC fundraising; St. Jude major org news only |
+| Louisiana OPH | PHUs, WIC, organizational change |
 | RWJF | Health equity, Medicaid, nursing workforce |
 
-## Project structure
+Edit focus areas in [`config/clients.yaml`](config/clients.yaml).
+
+---
+
+## How delivery works
 
 ```
-client-news-dashboard/
-├── config/
-│   ├── clients.yaml          # Client definitions, priorities, search queries
-│   └── research-playbook.md  # Weekly research and curation rules
-├── templates/
-│   └── dashboard.html.j2     # HTML structure reference
-├── dashboards/
-│   ├── latest.html           # Open this each week
-│   └── weekly-*.html         # Archives
-├── automation/
-│   └── weekly-dashboard.md   # Cursor Automation prompt reference
-└── README.md
+Sunday 6 PM → Cursor Automation researches & writes HTML
+           → Commits & pushes to GitHub
+           → GitHub Actions publishes to Pages
+           → You open your bookmark
 ```
 
-## Customize
+---
 
-Edit `config/clients.yaml` for search queries, priority tiers, and client focus areas.
+## Manual refresh (optional)
 
-Edit `config/research-playbook.md` for curation rules.
+Ask a Cursor agent to read `config/research-playbook.md`, refresh `dashboards/latest.html`, commit, and push.
 
-## Manual refresh
+---
 
-> Read config/clients.yaml and config/research-playbook.md. Research the past 7 days and regenerate dashboards/latest.html with clickable primary-source headline links. Follow priority tiers and client curation rules.
+## Local copy (optional)
 
-## Git setup (required for automation)
-
-```powershell
-cd client-news-dashboard
-git init
-git add .
-git commit -m "Initial client news dashboard"
-gh repo create client-news-dashboard --private --source=. --push
+```
+dashboards/latest.html
 ```
 
-Point the Cursor Automation at this repo in the Automations editor.
-
-## Automation
-
-- **Schedule:** Sunday 6:00 PM (`0 18 * * 0`)
-- **Runtime:** Cloud agent (web research)
-- **Prompt:** See `automation/weekly-dashboard.md`
+Double-click only if you want a local offline copy after `git pull`.
