@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Client Intelligence Brief - Jul 7-13, 2026</title>
+  <style>
+    :root {
+      --bg: #f4f6f9; --surface: #ffffff; --text: #111827; --muted: #4b5563;
+      --light: #9ca3af; --border: #e5e7eb; --link: #1d4ed8; --link-hover: #1e40af;
+      --tier1-bg: #eff6ff; --tier1-border: #3b82f6;
+      --urgent: #b91c1c; --urgent-bg: #fef2f2; --watch: #b45309; --watch-bg: #fffbeb;
+      --gates: #0d9488; --gavi: #0284c7; --stjude: #7c3aed; --loph: #ca8a04; --rwjf: #059669;
+      --imm: #4f46e5; --gph: #be123c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; font-size: 15px; }
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+    header { margin-bottom: 1.75rem; padding-bottom: 1.25rem; border-bottom: 2px solid var(--border); }
+    header h1 { font-size: 1.85rem; font-weight: 700; letter-spacing: -0.02em; }
+    .meta { color: var(--muted); font-size: 0.9rem; margin-top: 0.35rem; }
+    .meta span + span::before { content: " \00b7 "; }
+    section { margin-bottom: 2rem; }
+    .section-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--light); margin-bottom: 0.5rem; }
+    h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem; }
+    .tier-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.15rem 0.5rem; border-radius: 3px; background: var(--tier1-bg); color: var(--tier1-border); }
+    a.headline { color: var(--text); text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
+    a.headline:hover { color: var(--link); border-bottom-color: var(--link); }
+    a.source { color: var(--link); font-size: 0.8rem; text-decoration: none; }
+    a.source:hover { text-decoration: underline; }
+    .glance { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .glance-item { display: grid; grid-template-columns: 72px 1fr; gap: 0.85rem; padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--border); align-items: start; }
+    .glance-item:last-child { border-bottom: none; }
+    .priority { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.2rem 0.5rem; border-radius: 4px; text-align: center; }
+    .priority.urgent { background: var(--urgent-bg); color: var(--urgent); }
+    .priority.watch { background: var(--watch-bg); color: var(--watch); }
+    .priority.info { background: #eff6ff; color: #1d4ed8; }
+    .global-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .card.tier1 { border-top: 3px solid var(--tier1-border); }
+    .card-header { padding: 0.9rem 1.15rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.65rem; }
+    .card-accent { width: 4px; align-self: stretch; border-radius: 2px; flex-shrink: 0; min-height: 2rem; }
+    .card-header h3 { font-size: 1rem; font-weight: 700; }
+    .card-header .sub { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
+    .card-body { padding: 0.25rem 1.15rem 1rem; }
+    .subsection { margin-top: 0.85rem; }
+    .subsection h4 { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--light); padding-bottom: 0.35rem; margin-bottom: 0.25rem; border-bottom: 1px solid #f3f4f6; }
+    .item { padding: 0.75rem 0; border-bottom: 1px solid #f3f4f6; }
+    .item:last-child { border-bottom: none; }
+    .item-summary { font-size: 0.88rem; color: var(--muted); margin: 0.3rem 0 0.45rem; }
+    .item-meta { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
+    .tag { background: #f3f4f6; color: var(--muted); font-size: 0.72rem; font-weight: 600; padding: 0.12rem 0.45rem; border-radius: 3px; }
+    .status { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+    .status.confirmed { color: #047857; }
+    .status.developing { color: var(--watch); }
+    .client-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .empty { font-size: 0.88rem; color: var(--light); font-style: italic; padding: 0.5rem 0; }
+    footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--light); text-align: center; }
+    @media (max-width: 800px) { .global-row, .client-grid { grid-template-columns: 1fr; } .glance-item { grid-template-columns: 1fr; gap: 0.4rem; } }
+    @media print { body { background: white; font-size: 11px; } .wrap { padding: 0; } a.headline, a.source { color: inherit; } .card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Weekly Client Intelligence Brief</h1>
+  <p class="meta"><span>Reporting period: Jul 7-13, 2026</span><span>Generated: Monday, Jul 13, 2026 15:05 UTC</span><span>Source rule: primary or official source used for each headline</span></p>
+</header>
+
+<section>
+  <div class="section-label">Start here</div>
+  <h2>At a Glance</h2>
+  <div class="glance">
+    <div class="glance-item">
+      <span class="priority urgent">Urgent</span>
+      <div><a class="headline" href="https://polioeradication.org/news/new-outbreak-response-standards-to-stop-polio-faster/">GPEI updates outbreak-response standards to stop polio faster</a> - new SOPs sharpen outbreak definitions, risk assessment, response timelines, and course-correction triggers for type 2 outbreaks.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority urgent">Urgent</span>
+      <div><a class="headline" href="https://khub.africacdc.org/records/resource/bundibugyo-virus-disease-outbreak-situational-report-july-7-2026">Africa CDC: Bundibugyo outbreak reaches 1,779 confirmed cases and 602 deaths</a> - July 7 situation report shows active DRC transmission, 33.8% CFR, and 14,119 contacts under follow-up.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority watch">Watch</span>
+      <div><a class="headline" href="https://www.app.com.pk/national/high-level-polio-eradication-delegation-visits-pakistan/">Pakistan hosts GPEI Polio Oversight Board delegation with Gates and Gavi leadership</a> - APP reports Chris Elias and Sania Nishtar joined meetings on polio-EPI integration and Gavi 6.0 planning.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority watch">Watch</span>
+      <div><a class="headline" href="https://www.afro.who.int/countries/ethiopia/news/ethiopia-intensifies-polio-prevention-cross-border-and-refugee-communities">Ethiopia border/refugee polio campaign reaches more than 1 million children</a> - WHO AFRO credits EPHI, WHO, UNICEF, GPEI, and Gates Foundation resources for bOPV delivery and surveillance strengthening.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">Update</span>
+      <div><a class="headline" href="https://www.who.int/news-room/events/detail/2026/07/06/default-calendar/2026-who-product-development-for-vaccines-advisory-committee-meeting-(pdvac)">WHO vaccine advisory work continued with PDVAC and market-access meetings</a> - July 7-9 PDVAC and July 9 TAG MVAC meetings kept product development and access priorities active.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">Update</span>
+      <div><a class="headline" href="https://app.lla.state.la.us/publicreports.nsf/0/d4cabcf8b98961e486258e200074f9b9/$file/0000hrc8.pdf?.7773098=&amp;openelement=">Louisiana OPH: no new Jul 7-13 PHU/WIC release found; WIC audit remains the active oversight watch</a> - June Legislative Auditor findings on PHU-heavy WIC delivery remain the key organizational signal.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">Update</span>
+      <div><a class="headline" href="https://www.stjude.org/media-resources/news-releases/2026-fundraising-news.html">ALSAC/St. Jude: no new Jul 7-13 fundraising or leadership release found</a> - the latest fundraising-news index still points to board officers taking July 1 terms and earlier ALSAC executive appointments.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Tier 1 priority</div>
+  <h2>Global Topics <span class="tier-badge">Priority</span></h2>
+  <div class="global-row">
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--imm)"></div>
+        <div><h3>Immunization Pulse</h3><div class="sub">Pipeline &middot; coverage &middot; outbreaks &middot; partners &middot; donors</div></div>
+      </div>
+      <div class="card-body">
+        <div class="item">
+          <a class="headline" href="https://polioeradication.org/news/new-outbreak-response-standards-to-stop-polio-faster/">GPEI releases updated outbreak-response SOPs for faster polio interruption</a>
+          <p class="item-summary">The updated standards introduce clearer outbreak definitions, stronger risk assessment, tailored response strategies, implementation tracking, and defined triggers for course correction when a response is underperforming.</p>
+          <div class="item-meta"><span class="tag">Polio</span><span class="tag">Outbreak response</span><span class="status confirmed">Confirmed</span><a class="source" href="https://polioeradication.org/news/new-outbreak-response-standards-to-stop-polio-faster/">GPEI</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://www.who.int/news-room/events/detail/2026/07/06/default-calendar/2026-who-product-development-for-vaccines-advisory-committee-meeting-(pdvac)">WHO PDVAC meets July 7-9 on priority pathogens and vaccine product development</a>
+          <p class="item-summary">The Product Development for Vaccines Advisory Committee provides WHO with external advice on priority infectious disease pathogens, vaccine and monoclonal antibody development pathways, manufacturing, and delivery technologies.</p>
+          <div class="item-meta"><span class="tag">Pipeline</span><span class="tag">WHO</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.who.int/news-room/events/detail/2026/07/06/default-calendar/2026-who-product-development-for-vaccines-advisory-committee-meeting-(pdvac)">WHO</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://www.who.int/news-room/events/detail/2026/07/09/default-calendar/seventh-meeting-of-the-market-access-for-vaccines-technical-advisory-group">WHO Market Access for Vaccines TAG convenes its seventh meeting</a>
+          <p class="item-summary">The July 9 virtual meeting kept market access, vaccine availability, and implementation economics on the agenda as global immunization partners navigate tight financing and new product rollouts.</p>
+          <div class="item-meta"><span class="tag">Market access</span><span class="tag">Vaccine policy</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.who.int/news-room/events/detail/2026/07/09/default-calendar/seventh-meeting-of-the-market-access-for-vaccines-technical-advisory-group">WHO</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://www.afro.who.int/countries/ethiopia/news/ethiopia-intensifies-polio-prevention-cross-border-and-refugee-communities">Ethiopia intensifies polio prevention in cross-border and refugee communities</a>
+          <p class="item-summary">WHO AFRO says a synchronized bOPV campaign in Gambella, Benishangul-Gumuz, and Oromia border zones reached 1,026,885 children under five and linked zero-dose and under-vaccinated children to routine immunization.</p>
+          <div class="item-meta"><span class="tag">Polio</span><span class="tag">Zero-dose</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.afro.who.int/countries/ethiopia/news/ethiopia-intensifies-polio-prevention-cross-border-and-refugee-communities">WHO AFRO</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--gph)"></div>
+        <div><h3>Global Public Health</h3><div class="sub">Major developments &middot; funding &middot; emergencies</div></div>
+      </div>
+      <div class="card-body">
+        <div class="item">
+          <a class="headline" href="https://khub.africacdc.org/records/resource/bundibugyo-virus-disease-outbreak-situational-report-july-7-2026">Africa CDC July 7 sitrep: Bundibugyo outbreak remains a serious public health emergency</a>
+          <p class="item-summary">Africa CDC reports 1,779 confirmed cases and 602 deaths across DRC and Uganda, with Ituri accounting for 91.1% of DRC cases and 14,119 active contacts under follow-up.</p>
+          <div class="item-meta"><span class="tag">Ebola Bundibugyo</span><span class="tag">Africa CDC</span><span class="status developing">Developing</span><a class="source" href="https://khub.africacdc.org/records/resource/bundibugyo-virus-disease-outbreak-situational-report-july-7-2026">Africa CDC Knowledge Hub</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://www.afro.who.int/countries/democratic-republic-of-congo/publication/ebola-bundibugyo-virus-disease-outbreak-1">WHO AFRO Situation Report 08 shows further deterioration in DRC</a>
+          <p class="item-summary">Compared with the June 28 update, WHO AFRO reports 317 additional confirmed cases and 144 additional confirmed deaths, raising the crude CFR from 28.8% to 32.1% and expanding spread to 36 affected health zones.</p>
+          <div class="item-meta"><span class="tag">WHO AFRO</span><span class="tag">DRC</span><span class="status developing">Developing</span><a class="source" href="https://www.afro.who.int/countries/democratic-republic-of-congo/publication/ebola-bundibugyo-virus-disease-outbreak-1">WHO AFRO</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://www.afro.who.int/health-topics/ebola-disease/outbreak-drc-26">WHO AFRO active outbreak page underscores no licensed Bundibugyo vaccine or approved therapeutics</a>
+          <p class="item-summary">WHO notes the May PHEIC remains active and says authorities are prioritizing surveillance, IPC, contact tracing, case management, and readiness for trials or emergency use of investigational countermeasures.</p>
+          <div class="item-meta"><span class="tag">Countermeasures</span><span class="tag">PHEIC</span><span class="status developing">Developing</span><a class="source" href="https://www.afro.who.int/health-topics/ebola-disease/outbreak-drc-26">WHO AFRO</a></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="section-label">By client</div>
+  <h2>Client Updates</h2>
+  <div class="client-grid">
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--gates)"></div>
+        <div><h3>Gates Foundation</h3><div class="sub">Immunization &middot; polio &middot; health delivery</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <p class="empty">No significant updates this week: no Gates Foundation-owned press release or article found for Jul 7-13 on immunization, polio, or health delivery.</p>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <div class="item">
+            <a class="headline" href="https://www.app.com.pk/national/high-level-polio-eradication-delegation-visits-pakistan/">Gates Foundation Global Development President Chris Elias joins POB delegation in Pakistan</a>
+            <p class="item-summary">APP reports Pakistan hosted a GPEI Polio Oversight Board delegation that included Chris Elias, Gavi CEO Sania Nishtar, WHO, UNICEF, CDC, Rotary, and KSrelief leaders for federal meetings on polio eradication, EPI integration, and Gavi 6.0 planning.</p>
+            <div class="item-meta"><span class="tag">Polio</span><span class="tag">Leadership</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.app.com.pk/national/high-level-polio-eradication-delegation-visits-pakistan/">APP (official state news agency)</a></div>
+          </div>
+          <div class="item">
+            <a class="headline" href="https://www.afro.who.int/countries/ethiopia/news/ethiopia-intensifies-polio-prevention-cross-border-and-refugee-communities">WHO AFRO credits Gates Foundation resources in Ethiopia polio campaign support</a>
+            <p class="item-summary">The campaign summary says EPHI, WHO, UNICEF, and GPEI mobilized Gates Foundation resources, vaccine supply, logistics, supervision, and real-time monitoring to support border and refugee community vaccination.</p>
+            <div class="item-meta"><span class="tag">Grantmaking signal</span><span class="tag">Delivery</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.afro.who.int/countries/ethiopia/news/ethiopia-intensifies-polio-prevention-cross-border-and-refugee-communities">WHO AFRO</a></div>
+          </div>
+          <div class="item">
+            <a class="headline" href="https://polioeradication.org/news/new-outbreak-response-standards-to-stop-polio-faster/">GPEI SOP update raises accountability bar for Gates-backed outbreak response</a>
+            <p class="item-summary">As a core GPEI partner, Gates will watch implementation quality: GPEI says SOPs only translate into faster interruption if nationally owned, politically supported, and executed with operational excellence.</p>
+            <div class="item-meta"><span class="tag">GPEI</span><span class="tag">Accountability</span><span class="status confirmed">Confirmed</span><a class="source" href="https://polioeradication.org/news/new-outbreak-response-standards-to-stop-polio-faster/">GPEI</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--gavi)"></div>
+        <div><h3>Gavi</h3><div class="sub">Vaccine alliance &middot; replenishment &middot; country programs</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <div class="item">
+            <a class="headline" href="https://www.gavi.org/news-insights/media-room">No new Gavi-owned release found for Jul 7-13; July 2 board and July 1 supply chain releases remain latest media-room items</a>
+            <p class="item-summary">Gavi's media room showed no newer release in the reporting window. The active context remains Gavi 6.0 implementation, country ownership, fragility financing, AVMA, and the new immunization supply chain strategy.</p>
+            <div class="item-meta"><span class="tag">Gavi 6.0</span><span class="tag">Media room watch</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.gavi.org/news-insights/media-room">Gavi.org</a></div>
+          </div>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <div class="item">
+            <a class="headline" href="https://www.app.com.pk/national/high-level-polio-eradication-delegation-visits-pakistan/">Gavi CEO Sania Nishtar joins Pakistan GPEI Polio Oversight Board visit</a>
+            <p class="item-summary">APP reports the delegation reaffirmed support for integrating polio operations with routine vaccination, PEI engagement in Gavi 6.0 planning, and new vaccine introductions into Pakistan's routine EPI schedule.</p>
+            <div class="item-meta"><span class="tag">Country programs</span><span class="tag">Pakistan</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.app.com.pk/national/high-level-polio-eradication-delegation-visits-pakistan/">APP (official state news agency)</a></div>
+          </div>
+          <div class="item">
+            <a class="headline" href="https://www.who.int/news-room/events/detail/2026/07/09/default-calendar/seventh-meeting-of-the-market-access-for-vaccines-technical-advisory-group">WHO market-access advisory meeting aligns with Gavi access and affordability priorities</a>
+            <p class="item-summary">The July 9 TAG MVAC meeting is relevant to Gavi's country-program economics, especially as new vaccine introductions and constrained donor financing put more pressure on access design.</p>
+            <div class="item-meta"><span class="tag">Market access</span><span class="tag">Affordability</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.who.int/news-room/events/detail/2026/07/09/default-calendar/seventh-meeting-of-the-market-access-for-vaccines-technical-advisory-group">WHO</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--loph)"></div>
+        <div><h3>Louisiana Office of Public Health</h3><div class="sub">PHUs &middot; WIC &middot; organizational change</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <div class="item">
+            <a class="headline" href="https://ldh.la.gov/bureau-of-nutrition-services/women-infants-children-program">No new Jul 7-13 LDH/OPH PHU, WIC, or organizational-change release found</a>
+            <p class="item-summary">LDH's current WIC page remains the primary public access point for Louisiana WIC applicants and vendors. No qualifying OPH announcement on PHU operations, WIC oversight, or restructuring surfaced in this week's searches.</p>
+            <div class="item-meta"><span class="tag">WIC</span><span class="tag">No new update</span><span class="status confirmed">Confirmed</span><a class="source" href="https://ldh.la.gov/bureau-of-nutrition-services/women-infants-children-program">Louisiana Department of Health</a></div>
+          </div>
+        </div>
+        <div class="subsection"><h4>Carry-forward Oversight Watch</h4>
+          <div class="item">
+            <a class="headline" href="https://app.lla.state.la.us/publicreports.nsf/0/d4cabcf8b98961e486258e200074f9b9/$file/0000hrc8.pdf?.7773098=&amp;openelement=">Legislative Auditor WIC report remains the main OPH accountability signal</a>
+            <p class="item-summary">The June 24 audit found 61 of 102 WIC clinics were PHUs, 56 of 100 clinics missed monthly outreach requirements in FFY 2025, LDH identified only 4 of those 56, and Louisiana left $111.6M in WIC funds unused during FFY 2021-2024.</p>
+            <div class="item-meta"><span class="tag">PHU oversight</span><span class="tag">Audit</span><span class="status confirmed">Confirmed</span><a class="source" href="https://app.lla.state.la.us/publicreports.nsf/0/d4cabcf8b98961e486258e200074f9b9/$file/0000hrc8.pdf?.7773098=&amp;openelement=">Louisiana Legislative Auditor</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--stjude)"></div>
+        <div><h3>ALSAC / St. Jude</h3><div class="sub">Fundraising &middot; organizational leadership</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Fundraising and Leadership</h4>
+          <div class="item">
+            <a class="headline" href="https://www.stjude.org/media-resources/news-releases/2026-fundraising-news.html">No new Jul 7-13 ALSAC fundraising or leadership announcement found</a>
+            <p class="item-summary">The St. Jude/ALSAC fundraising-news index shows the latest leadership items remain the board officer terms beginning July 1 and the January appointment of Martin Hand as ALSAC chief development officer and Deb Garcia as SVP of strategy. No routine research or clinical micro-updates were included.</p>
+            <div class="item-meta"><span class="tag">Fundraising leadership</span><span class="tag">No new update</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.stjude.org/media-resources/news-releases/2026-fundraising-news.html">St. Jude / ALSAC</a></div>
+          </div>
+          <div class="item">
+            <a class="headline" href="https://www.stjude.org/media-resources/news-releases/2026-fundraising-news/st-jude-alsac-board-officers.html">ALSAC/St. Jude board officers remain current after July 1 term start</a>
+            <p class="item-summary">The primary announcement says board officers provide governance and strategic oversight as St. Jude advances its $12.9B strategic plan and James R. Downing prepares for a planned late-2026 CEO transition.</p>
+            <div class="item-meta"><span class="tag">Board</span><span class="tag">Leadership transition</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.stjude.org/media-resources/news-releases/2026-fundraising-news/st-jude-alsac-board-officers.html">St. Jude / ALSAC</a></div>
+          </div>
+        </div>
+        <div class="subsection"><h4>St. Jude Major Org News</h4>
+          <p class="empty">No significant updates this week beyond the leadership items above.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--rwjf)"></div>
+        <div><h3>Robert Wood Johnson Foundation</h3><div class="sub">Health equity &middot; Medicaid &middot; nursing workforce &middot; SDOH</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <div class="item">
+            <a class="headline" href="https://anr.rwjf.org/viewCfp.do?cfpId=1747">RWJF Global Ideas full proposal deadline fell on July 9</a>
+            <p class="item-summary">The Global Ideas for U.S. Solutions CFP offers up to $5.5M for action-oriented projects that use global learning to build a more inclusive, equitable, and resilient U.S. health knowledge system.</p>
+            <div class="item-meta"><span class="tag">Health equity</span><span class="tag">Funding opportunity</span><span class="status confirmed">Confirmed</span><a class="source" href="https://anr.rwjf.org/viewCfp.do?cfpId=1747">RWJF application portal</a></div>
+          </div>
+          <div class="item">
+            <a class="headline" href="https://www.rwjf.org/en/grants/active-funding-opportunities/2026/from-insight-to-action-health-equity-research-that-meets-this-moment.html">HERA full proposal deadline remains July 27 for invited applicants</a>
+            <p class="item-summary">RWJF's Health Equity Research for Action program will support community-rooted, action-oriented health equity research through national coordinating centers at Charles R. Drew, Michigan State, and Morehouse.</p>
+            <div class="item-meta"><span class="tag">HERA</span><span class="tag">Research agenda</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.rwjf.org/en/grants/active-funding-opportunities/2026/from-insight-to-action-health-equity-research-that-meets-this-moment.html">RWJF</a></div>
+          </div>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <p class="empty">No significant external updates this week.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>19 curated items &middot; 12 primary or official sources &middot; Tier 1 lead: Immunization, Global Public Health, Gates Foundation, Gavi</footer>
+
+</div>
+</body>
+</html>
