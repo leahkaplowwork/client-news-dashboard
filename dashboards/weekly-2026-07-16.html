@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Client Intelligence Brief &mdash; Jul 10-16, 2026</title>
+  <style>
+    :root {
+      --bg: #f4f6f9; --surface: #ffffff; --text: #111827; --muted: #4b5563;
+      --light: #9ca3af; --border: #e5e7eb; --link: #1d4ed8; --link-hover: #1e40af;
+      --tier1-bg: #eff6ff; --tier1-border: #3b82f6;
+      --urgent: #b91c1c; --urgent-bg: #fef2f2; --watch: #b45309; --watch-bg: #fffbeb;
+      --gates: #0d9488; --gavi: #0284c7; --stjude: #7c3aed; --loph: #ca8a04; --rwjf: #059669;
+      --imm: #4f46e5; --gph: #be123c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; font-size: 15px; }
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+    header { margin-bottom: 1.75rem; padding-bottom: 1.25rem; border-bottom: 2px solid var(--border); }
+    header h1 { font-size: 1.85rem; font-weight: 700; letter-spacing: -0.02em; }
+    .meta { color: var(--muted); font-size: 0.9rem; margin-top: 0.35rem; }
+    .meta span + span::before { content: " · "; }
+    section { margin-bottom: 2rem; }
+    .section-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--light); margin-bottom: 0.5rem; }
+    h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem; }
+    .tier-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.15rem 0.5rem; border-radius: 3px; background: var(--tier1-bg); color: var(--tier1-border); }
+    a.headline { color: var(--text); text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
+    a.headline:hover { color: var(--link); border-bottom-color: var(--link); }
+    a.source { color: var(--link); font-size: 0.8rem; text-decoration: none; }
+    a.source:hover { text-decoration: underline; }
+    .glance { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .glance-item { display: grid; grid-template-columns: 72px 1fr; gap: 0.85rem; padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--border); align-items: start; }
+    .glance-item:last-child { border-bottom: none; }
+    .priority { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.2rem 0.5rem; border-radius: 4px; text-align: center; }
+    .priority.urgent { background: var(--urgent-bg); color: var(--urgent); }
+    .priority.watch { background: var(--watch-bg); color: var(--watch); }
+    .priority.info { background: #eff6ff; color: #1d4ed8; }
+    .global-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .card.tier1 { border-top: 3px solid var(--tier1-border); }
+    .card-header { padding: 0.9rem 1.15rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.65rem; }
+    .card-accent { width: 4px; align-self: stretch; border-radius: 2px; flex-shrink: 0; min-height: 2rem; }
+    .card-header h3 { font-size: 1rem; font-weight: 700; }
+    .card-header .sub { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
+    .card-body { padding: 0.25rem 1.15rem 1rem; }
+    .subsection { margin-top: 0.85rem; }
+    .subsection h4 { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--light); padding-bottom: 0.35rem; margin-bottom: 0.25rem; border-bottom: 1px solid #f3f4f6; }
+    .item { padding: 0.75rem 0; border-bottom: 1px solid #f3f4f6; }
+    .item:last-child { border-bottom: none; }
+    .item-summary { font-size: 0.88rem; color: var(--muted); margin: 0.3rem 0 0.45rem; }
+    .item-meta { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
+    .tag { background: #f3f4f6; color: var(--muted); font-size: 0.72rem; font-weight: 600; padding: 0.12rem 0.45rem; border-radius: 3px; }
+    .status { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+    .status.confirmed { color: #047857; }
+    .status.developing { color: var(--watch); }
+    .client-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .empty { font-size: 0.88rem; color: var(--light); font-style: italic; padding: 0.5rem 0; }
+    footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--light); text-align: center; }
+    @media (max-width: 800px) { .global-row, .client-grid { grid-template-columns: 1fr; } .glance-item { grid-template-columns: 1fr; gap: 0.4rem; } }
+    @media print { body { background: white; font-size: 11px; } .wrap { padding: 0; } a.headline, a.source { color: inherit; } .card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Weekly Client Intelligence Brief</h1>
+  <p class="meta"><span>Reporting period: Jul 10-16, 2026</span><span>Generated: Thursday, Jul 16, 2026, 20:56 UTC</span></p>
+</header>
+
+<section>
+  <div class="section-label">Start here</div>
+  <h2>At a Glance</h2>
+  <div class="glance">
+    <div class="glance-item">
+      <span class="priority urgent">Urgent</span>
+      <div><a class="headline" href="https://www.who.int/news/item/15-07-2026-global-childhood-immunization-coverage-inches-forward-despite-conflict-and-hesitancy---unicef--who">WHO/UNICEF: global childhood immunization inched forward, but measles and zero-dose gaps remain large</a> &mdash; 2025 DTP1 coverage reached 90% and DTP3 85%, while 13.5 million infants still received no first vaccine dose and 57 countries reported large or disruptive measles outbreaks.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority urgent">Urgent</span>
+      <div><a class="headline" href="https://www.who.int/news-room/speeches/item/who-director-general-s-opening-remarks-at-the-media-briefing---16-july-2026">WHO: Bundibugyo Ebola outbreak is now the third-largest Ebola outbreak on record</a> &mdash; WHO reported 2,073 cases and 796 deaths, with more than 80% of new cases outside known contact lists and a $400 million response-plan funding gap.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority watch">Watch</span>
+      <div><a class="headline" href="https://www.gavi.org/vaccineswork/state-global-immunisation-eight-charts">Gavi analysis: about 70% of the world's zero-dose children live in Gavi-supported countries</a> &mdash; zero-dose children in Gavi countries fell by 640,000 to 9.5 million in 2025, but the total remains above the pre-pandemic baseline.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority watch">Watch</span>
+      <div><a class="headline" href="https://polioeradication.org/news/gpei-leadership-in-endemic-countries-polio-eradication-and-strengthening-health-systems-go-hand-in-hand/">GPEI leadership tied final endemic-country polio work to health-system strengthening</a> &mdash; Polio Oversight Board leaders met Afghanistan and Pakistan officials, frontline workers, donors, and partners including Gavi to reinforce eradication and essential-service protection.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority watch">Watch</span>
+      <div><a class="headline" href="https://www.afro.who.int/countries/ethiopia/news/ethiopia-intensifies-polio-prevention-cross-border-and-refugee-communities">Ethiopia/South Sudan border polio campaign reached more than 1 million children</a> &mdash; WHO says Gates Foundation resources, WHO/UNICEF/GPEI support, and strengthened logistics helped deliver bOPV in refugee and cross-border communities.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">Update</span>
+      <div><a class="headline" href="https://afro.who.int/countries/uganda/news/uganda-begins-countdown-end-ebola-outbreak">Uganda began its 42-day countdown toward ending its Ebola outbreak</a> &mdash; all contacts have completed follow-up, but WHO cautions the countdown could reset because DRC transmission remains active across the border.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">Update</span>
+      <div><a class="headline" href="https://www.rwjf.org/en/grants/active-funding-opportunities/2026/from-insight-to-action-health-equity-research-that-meets-this-moment.html">RWJF's new HERA health equity research program moves toward July 27 full proposals</a> &mdash; invited applicants are nearing the deadline for community-rooted, action-oriented health equity research grants.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Tier 1 priority</div>
+  <h2>Global Topics <span class="tier-badge">Priority</span></h2>
+  <div class="global-row">
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--imm)"></div>
+        <div><h3>Immunization Pulse</h3><div class="sub">Pipeline · coverage · outbreaks · partners · donors</div></div>
+      </div>
+      <div class="card-body">
+        <div class="item">
+          <a class="headline" href="https://www.who.int/news/item/15-07-2026-global-childhood-immunization-coverage-inches-forward-despite-conflict-and-hesitancy---unicef--who">Global childhood immunization coverage inches forward despite conflict and hesitancy</a>
+          <p class="item-summary">WHO and UNICEF's July 15 WUENIC release shows 90% of infants received at least one DTP dose in 2025 and 85% completed the three-dose series. The warning signal: 13.5 million zero-dose infants, 7.3 million DTP-to-measles dropouts, and measles coverage still well below the 95% outbreak-prevention threshold.</p>
+          <div class="item-meta"><span class="tag">WUENIC</span><span class="tag">Zero-dose</span><span class="tag">Measles</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.who.int/news/item/15-07-2026-global-childhood-immunization-coverage-inches-forward-despite-conflict-and-hesitancy---unicef--who">WHO</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://www.gavi.org/vaccineswork/state-global-immunisation-eight-charts">The state of global immunisation in eight charts</a>
+          <p class="item-summary">Gavi's July 15 readout translates WUENIC into alliance-relevant signals: average DTP3 coverage in Gavi-supported countries reached 83%, and the number of zero-dose children in those countries fell by 640,000 to 9.5 million. This is progress, but still above the 2019 level of 9.1 million.</p>
+          <div class="item-meta"><span class="tag">Gavi countries</span><span class="tag">Coverage</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.gavi.org/vaccineswork/state-global-immunisation-eight-charts">Gavi VaccinesWork</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://polioeradication.org/news/gpei-leadership-in-endemic-countries-polio-eradication-and-strengthening-health-systems-go-hand-in-hand/">GPEI leadership in endemic countries: polio eradication and strengthening health systems go hand in hand</a>
+          <p class="item-summary">The Polio Oversight Board met leaders in Afghanistan and Pakistan, the last two polio-endemic countries, and elevated a joint message: eradication work must protect and strengthen essential health services. The visit is a leading indicator for integrated polio/routine-immunization strategy in 2026.</p>
+          <div class="item-meta"><span class="tag">Polio</span><span class="tag">Endemic countries</span><span class="status confirmed">Confirmed</span><a class="source" href="https://polioeradication.org/news/gpei-leadership-in-endemic-countries-polio-eradication-and-strengthening-health-systems-go-hand-in-hand/">GPEI</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://www.afro.who.int/countries/ethiopia/news/ethiopia-intensifies-polio-prevention-cross-border-and-refugee-communities">Ethiopia intensifies polio prevention in cross-border and refugee communities</a>
+          <p class="item-summary">WHO AFRO reports a synchronized Ethiopia/South Sudan bOPV campaign reached 1,026,885 children in high-risk border areas and refugee camps. The campaign used Gates Foundation resources, WHO technical support, UNICEF vaccine supplies, and GPEI partner coordination.</p>
+          <div class="item-meta"><span class="tag">Polio</span><span class="tag">Cross-border</span><span class="tag">Gates resources</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.afro.who.int/countries/ethiopia/news/ethiopia-intensifies-polio-prevention-cross-border-and-refugee-communities">WHO AFRO</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--gph)"></div>
+        <div><h3>Global Public Health</h3><div class="sub">Major developments · funding · emergencies</div></div>
+      </div>
+      <div class="card-body">
+        <div class="item">
+          <a class="headline" href="https://www.who.int/news-room/speeches/item/who-director-general-s-opening-remarks-at-the-media-briefing---16-july-2026">WHO Director-General's opening remarks at the media briefing - 16 July 2026</a>
+          <p class="item-summary">WHO's Director-General said the DRC/Uganda Bundibugyo Ebola outbreak has reached 2,073 cases and 796 deaths and is outpacing response capacity in DRC. The operational concern is surveillance: more than 80% of new cases are being detected outside known contact lists, and about two-thirds of deaths are occurring in communities.</p>
+          <div class="item-meta"><span class="tag">Ebola</span><span class="tag">PHEIC</span><span class="tag">Funding gap</span><span class="status developing">Developing</span><a class="source" href="https://www.who.int/news-room/speeches/item/who-director-general-s-opening-remarks-at-the-media-briefing---16-july-2026">WHO</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://afro.who.int/countries/uganda/news/uganda-begins-countdown-end-ebola-outbreak">Uganda begins countdown to end of Ebola outbreak</a>
+          <p class="item-summary">Uganda entered the 42-day countdown after its last confirmed case tested negative for a second time and was discharged. WHO notes all 836 contacts completed follow-up, but the risk of new importations remains because the event is still a cross-border outbreak with ongoing DRC transmission.</p>
+          <div class="item-meta"><span class="tag">Uganda</span><span class="tag">Ebola</span><span class="status developing">Developing</span><a class="source" href="https://afro.who.int/countries/uganda/news/uganda-begins-countdown-end-ebola-outbreak">WHO AFRO</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://khub.africacdc.org/records/resource/bundibugyo-virus-disease-outbreak-situational-report-july-13-2026">Bundibugyo Virus Disease Outbreak Situational Report July 13, 2026</a>
+          <p class="item-summary">Africa CDC's Health Knowledge Hub reported 2,031 confirmed cases and 756 deaths across DRC and Uganda as of July 13, with DRC accounting for nearly all cases and deaths. Ituri remained the epicenter, while North Kivu and Haut-Uele showed severe transmission and high case fatality ratios.</p>
+          <div class="item-meta"><span class="tag">Africa CDC</span><span class="tag">Surveillance</span><span class="status developing">Developing</span><a class="source" href="https://khub.africacdc.org/records/resource/bundibugyo-virus-disease-outbreak-situational-report-july-13-2026">Africa CDC Health Knowledge Hub</a></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="section-label">By client</div>
+  <h2>Client Updates</h2>
+  <div class="client-grid">
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--gates)"></div>
+        <div><h3>Gates Foundation</h3><div class="sub">Immunization · polio · health delivery</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <p class="empty">No significant Gates Foundation primary announcement identified in the Jul 10-16 reporting window.</p>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <div class="item">
+            <a class="headline" href="https://www.afro.who.int/countries/ethiopia/news/ethiopia-intensifies-polio-prevention-cross-border-and-refugee-communities">Gates Foundation resources supported Ethiopia's cross-border polio campaign logistics</a>
+            <p class="item-summary">WHO AFRO explicitly credits Gates Foundation resources alongside WHO, UNICEF, and GPEI partner support in the campaign that reached more than 1 million children. Why it matters: it shows Gates-backed delivery capacity being applied in mobile, refugee, and border communities where routine systems are hardest to reach.</p>
+            <div class="item-meta"><span class="tag">Health delivery</span><span class="tag">Africa</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.afro.who.int/countries/ethiopia/news/ethiopia-intensifies-polio-prevention-cross-border-and-refugee-communities">WHO AFRO</a></div>
+          </div>
+          <div class="item">
+            <a class="headline" href="https://www.who.int/news/item/15-07-2026-global-childhood-immunization-coverage-inches-forward-despite-conflict-and-hesitancy---unicef--who">WUENIC data reinforces Gates priorities on zero-dose children and immunization delivery</a>
+            <p class="item-summary">WHO/UNICEF's latest coverage estimates show gains but persistent under-immunization in countries supported by Gavi and other partners. Why it matters: the zero-dose and measles-dropout gaps align with Gates Foundation health delivery and vaccine-access priorities.</p>
+            <div class="item-meta"><span class="tag">Zero-dose</span><span class="tag">Vaccine delivery</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.who.int/news/item/15-07-2026-global-childhood-immunization-coverage-inches-forward-despite-conflict-and-hesitancy---unicef--who">WHO</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--gavi)"></div>
+        <div><h3>Gavi</h3><div class="sub">Vaccine alliance · replenishment · country programs</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <div class="item">
+            <a class="headline" href="https://www.gavi.org/vaccineswork/state-global-immunisation-eight-charts">Gavi: the latest WUENIC data show improving coverage in lower-income countries</a>
+            <p class="item-summary">Gavi reports that average DTP3 coverage across supported countries reached 83% in 2025, with more than half of supported countries matching or exceeding 2019 coverage. The zero-dose count in Gavi-supported countries dropped to 9.5 million, accounting for most of the global reduction.</p>
+            <div class="item-meta"><span class="tag">WUENIC</span><span class="tag">Gavi 6.0</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.gavi.org/vaccineswork/state-global-immunisation-eight-charts">Gavi VaccinesWork</a></div>
+          </div>
+          <div class="item">
+            <a class="headline" href="https://www.gavi.org/vaccineswork/state-global-immunisation-eight-charts">Gavi-supported countries drove 85% of the global zero-dose reduction</a>
+            <p class="item-summary">Gavi's analysis attributes the reduction largely to improvements in populous countries including Sudan, Ethiopia, and India. This supports the alliance's country-program narrative while underscoring that 70% of global zero-dose children are still in Gavi-supported countries.</p>
+            <div class="item-meta"><span class="tag">Zero-dose</span><span class="tag">Country programs</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.gavi.org/vaccineswork/state-global-immunisation-eight-charts">Gavi VaccinesWork</a></div>
+          </div>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <div class="item">
+            <a class="headline" href="https://polioeradication.org/news/gpei-leadership-in-endemic-countries-polio-eradication-and-strengthening-health-systems-go-hand-in-hand/">Gavi named among partners in GPEI endemic-country leadership push</a>
+            <p class="item-summary">GPEI says Polio Oversight Board leaders and partners including Gavi met public health leaders, frontline workers, donors, and religious leaders in Afghanistan and Pakistan. Why it matters: Gavi's routine immunization platform is central to sustaining gains in the last polio-endemic geographies.</p>
+            <div class="item-meta"><span class="tag">Polio</span><span class="tag">Routine immunization</span><span class="status confirmed">Confirmed</span><a class="source" href="https://polioeradication.org/news/gpei-leadership-in-endemic-countries-polio-eradication-and-strengthening-health-systems-go-hand-in-hand/">GPEI</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--loph)"></div>
+        <div><h3>Louisiana Office of Public Health</h3><div class="sub">PHUs · WIC · organizational change</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <p class="empty">No significant OPH, parish health unit, WIC, or organizational-change updates identified in the Jul 10-16 reporting window.</p>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <p class="empty">No significant external PHU, WIC, or OPH organizational updates this week.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--stjude)"></div>
+        <div><h3>ALSAC / St. Jude</h3><div class="sub">Fundraising · organizational leadership</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <p class="empty">No significant ALSAC fundraising or leadership update identified in the Jul 10-16 reporting window.</p>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <p class="empty">No significant external ALSAC fundraising or leadership updates this week.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--rwjf)"></div>
+        <div><h3>Robert Wood Johnson Foundation</h3><div class="sub">Health equity · Medicaid · nursing workforce · SDOH</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <div class="item">
+            <a class="headline" href="https://www.rwjf.org/en/grants/active-funding-opportunities/2026/from-insight-to-action-health-equity-research-that-meets-this-moment.html">From Insight to Action: Health Equity Research that Meets This Moment</a>
+            <p class="item-summary">RWJF's Health Equity Research for Action (HERA) CFP is moving toward a July 27 full-proposal deadline for invited applicants. The program centers community-rooted, action-oriented research administered through coordinating centers at Charles R. Drew University, Michigan State, and Morehouse.</p>
+            <div class="item-meta"><span class="tag">HERA</span><span class="tag">Health equity</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.rwjf.org/en/grants/active-funding-opportunities/2026/from-insight-to-action-health-equity-research-that-meets-this-moment.html">RWJF</a></div>
+          </div>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <p class="empty">No significant external RWJF-adjacent policy updates this week.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>13 curated items · 8 primary-source URLs · Tier 1 focus: Immunization, Global Public Health, Gates Foundation, Gavi</footer>
+
+</div>
+</body>
+</html>
