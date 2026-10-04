@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Client Intelligence Brief - Sep 28-Oct 4, 2026</title>
+  <style>
+    :root {
+      --bg: #f4f6f9; --surface: #ffffff; --text: #111827; --muted: #4b5563;
+      --light: #9ca3af; --border: #e5e7eb; --link: #1d4ed8; --link-hover: #1e40af;
+      --tier1-bg: #eff6ff; --tier1-border: #3b82f6;
+      --urgent: #b91c1c; --urgent-bg: #fef2f2; --watch: #b45309; --watch-bg: #fffbeb;
+      --gates: #0d9488; --gavi: #0284c7; --stjude: #7c3aed; --loph: #ca8a04; --rwjf: #059669;
+      --imm: #4f46e5; --gph: #be123c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; font-size: 15px; }
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+    header { margin-bottom: 1.75rem; padding-bottom: 1.25rem; border-bottom: 2px solid var(--border); }
+    header h1 { font-size: 1.85rem; font-weight: 700; letter-spacing: -0.02em; }
+    .meta { color: var(--muted); font-size: 0.9rem; margin-top: 0.35rem; }
+    .meta span + span::before { content: " | "; }
+    section { margin-bottom: 2rem; }
+    .section-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--light); margin-bottom: 0.5rem; }
+    h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem; }
+    .tier-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.15rem 0.5rem; border-radius: 3px; background: var(--tier1-bg); color: var(--tier1-border); }
+    a.headline { color: var(--text); text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
+    a.headline:hover { color: var(--link); border-bottom-color: var(--link); }
+    a.source { color: var(--link); font-size: 0.8rem; text-decoration: none; }
+    a.source:hover { text-decoration: underline; }
+    .glance { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .glance-item { display: grid; grid-template-columns: 72px 1fr; gap: 0.85rem; padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--border); align-items: start; }
+    .glance-item:last-child { border-bottom: none; }
+    .priority { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.2rem 0.5rem; border-radius: 4px; text-align: center; }
+    .priority.urgent { background: var(--urgent-bg); color: var(--urgent); }
+    .priority.watch { background: var(--watch-bg); color: var(--watch); }
+    .priority.info { background: #eff6ff; color: #1d4ed8; }
+    .global-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .card.tier1 { border-top: 3px solid var(--tier1-border); }
+    .card-header { padding: 0.9rem 1.15rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.65rem; }
+    .card-accent { width: 4px; align-self: stretch; border-radius: 2px; flex-shrink: 0; min-height: 2rem; }
+    .card-header h3 { font-size: 1rem; font-weight: 700; }
+    .card-header .sub { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
+    .card-body { padding: 0.25rem 1.15rem 1rem; }
+    .subsection { margin-top: 0.85rem; }
+    .subsection h4 { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--light); padding-bottom: 0.35rem; margin-bottom: 0.25rem; border-bottom: 1px solid #f3f4f6; }
+    .item { padding: 0.75rem 0; border-bottom: 1px solid #f3f4f6; }
+    .item:last-child { border-bottom: none; }
+    .item-summary { font-size: 0.88rem; color: var(--muted); margin: 0.3rem 0 0.45rem; }
+    .item-meta { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
+    .tag { background: #f3f4f6; color: var(--muted); font-size: 0.72rem; font-weight: 600; padding: 0.12rem 0.45rem; border-radius: 3px; }
+    .status { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+    .status.confirmed { color: #047857; }
+    .status.developing { color: var(--watch); }
+    .client-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .empty { font-size: 0.88rem; color: var(--light); font-style: italic; padding: 0.5rem 0; }
+    footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--light); text-align: center; }
+    @media (max-width: 800px) { .global-row, .client-grid { grid-template-columns: 1fr; } .glance-item { grid-template-columns: 1fr; gap: 0.4rem; } }
+    @media print { body { background: white; font-size: 11px; } .wrap { padding: 0; } a.headline, a.source { color: inherit; } .card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Weekly Client Intelligence Brief</h1>
+  <p class="meta"><span>Reporting period: Sep 28-Oct 4, 2026</span><span>Generated: Sunday, Oct 4, 2026</span><span>Priority: Immunization, Global Public Health, Gates Foundation, Gavi</span></p>
+</header>
+
+<section>
+  <div class="section-label">Start here</div>
+  <h2>At a Glance</h2>
+  <div class="glance">
+    <div class="glance-item">
+      <span class="priority urgent">Urgent</span>
+      <div><a class="headline" href="https://www.gavi.org/news/media-room/made-africa-new-measles-rapid-diagnostic-tests-mark-breakthrough-vaccination">Gavi clears first measles rapid diagnostic tests for outbreak response</a> - Sept. 30 approval will support faster confirmation in remote and emergency settings; Gates Foundation contributed about $7 million to development.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority urgent">Urgent</span>
+      <div><a class="headline" href="https://polioeradication.org/news/gpei-welcomes-25th-report-of-the-independent-monitoring-board/">GPEI IMB says wild poliovirus remains beyond strategy timelines</a> - Oct. 2 response highlights Afghanistan/Pakistan transmission, routine immunization and surveillance gaps, and constrained global financing.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority urgent">Urgent</span>
+      <div><a class="headline" href="https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON618">WHO reports DRC Bundibugyo Ebola at 7,890 confirmed cases across seven provinces</a> - outbreak expansion raises cross-border risk, with a 48.1% crude case fatality ratio as of Sept. 23.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority watch">Watch</span>
+      <div><a class="headline" href="https://www.who.int/bangladesh/news/detail/04-10-2026-with-who-and-partner-support--bangladesh-launches-independent-review-to-strengthen-national-immunization-programme">Bangladesh launches WHO-supported review of EPI and vaccine-preventable disease surveillance</a> - Oct. 4-14 review follows a 2026 measles outbreak and will produce recommendations in November.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority watch">Watch</span>
+      <div><a class="headline" href="https://polioeradication.org/news/who-appoints-chris-wolff-as-director-of-polio-eradication/">WHO appoints Chris Wolff as Director of Polio Eradication</a> - new GPEI strategy committee chair returns to WHO as the program focuses on Afghanistan, Pakistan, cVDPV outbreaks, and routine immunization integration.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">Update</span>
+      <div><a class="headline" href="https://app.lla.state.la.us/publicreports.nsf/0/d4cabcf8b98961e486258e200074f9b9/$file/0000hrc8.pdf">Louisiana WIC outreach requirements step up Oct. 1 under auditor-driven corrective action</a> - PHU and contracted clinics with larger coverage gaps move to higher monthly outreach expectations.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">Update</span>
+      <div><a class="headline" href="https://www.stjude.org/media-resources/news-releases/2026-fundraising-news/childhood-cancer-awareness-month.html">ALSAC wraps September fundraising push with St. Jude Walks and Oct. 2 Relay podcastathon</a> - campaign ties national sponsors, retail partners, creators, and local walks to Childhood Cancer Awareness Month fundraising.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Tier 1 priority</div>
+  <h2>Global Topics <span class="tier-badge">Priority</span></h2>
+  <div class="global-row">
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--imm)"></div>
+        <div><h3>Immunization Pulse</h3><div class="sub">Pipeline | coverage | outbreaks | partners | donors</div></div>
+      </div>
+      <div class="card-body">
+        <div class="item">
+          <a class="headline" href="https://www.gavi.org/news/media-room/made-africa-new-measles-rapid-diagnostic-tests-mark-breakthrough-vaccination">Made in Africa: new measles rapid diagnostic tests mark breakthrough for vaccination efforts</a>
+          <p class="item-summary">Gavi approved deployment of first-ever measles rapid diagnostic tests, developed through DIATROPIX/Institut Pasteur de Dakar with WHO, UNICEF, Gates Foundation and other partners. Why it matters: faster, lower-cost case confirmation can sharpen outbreak vaccination campaigns and zero-dose targeting.</p>
+          <div class="item-meta"><span class="tag">Measles</span><span class="tag">Surveillance</span><span class="tag">Gates/Gavi</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.gavi.org/news/media-room/made-africa-new-measles-rapid-diagnostic-tests-mark-breakthrough-vaccination">Gavi.org</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://www.who.int/bangladesh/news/detail/04-10-2026-with-who-and-partner-support--bangladesh-launches-independent-review-to-strengthen-national-immunization-programme">Bangladesh launches independent review to strengthen national immunization programme</a>
+          <p class="item-summary">The government and WHO began a national and divisional EPI/surveillance review running Oct. 4-14 after a 2026 measles outbreak exposed immunity and response gaps. The review covers financing, cold chain, service delivery, coverage data, outbreak preparedness and demand generation.</p>
+          <div class="item-meta"><span class="tag">Coverage</span><span class="tag">Measles</span><span class="tag">EPI</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.who.int/bangladesh/news/detail/04-10-2026-with-who-and-partner-support--bangladesh-launches-independent-review-to-strengthen-national-immunization-programme">WHO Bangladesh</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://www.afro.who.int/countries/uganda/news/how-uganda-turning-measles-demand-vaccination-coverage">How Uganda is turning measles demand into vaccination coverage</a>
+          <p class="item-summary">WHO Africa reports Uganda is preparing an October measles-rubella follow-up campaign after 2025 outbreaks, with only 43% of districts reaching first-dose MR targets and 64% of confirmed measles cases unvaccinated. The campaign focuses on children aged 9-59 months and demand-building with caregivers.</p>
+          <div class="item-meta"><span class="tag">Uganda</span><span class="tag">MR campaign</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.afro.who.int/countries/uganda/news/how-uganda-turning-measles-demand-vaccination-coverage">WHO Africa</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://polioeradication.org/news/gpei-welcomes-25th-report-of-the-independent-monitoring-board/">GPEI welcomes 25th report of the Independent Monitoring Board</a>
+          <p class="item-summary">GPEI says the IMB recognizes progress in interrupting cVDPV outbreaks in five countries but flags continued wild poliovirus transmission in Afghanistan and Pakistan, routine immunization and surveillance gaps, and financing constraints. The 21 recommendations are a useful watchlist for donors and eradication partners.</p>
+          <div class="item-meta"><span class="tag">Polio</span><span class="tag">GPEI</span><span class="tag">Financing</span><span class="status confirmed">Confirmed</span><a class="source" href="https://polioeradication.org/news/gpei-welcomes-25th-report-of-the-independent-monitoring-board/">GPEI</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--gph)"></div>
+        <div><h3>Global Public Health</h3><div class="sub">Major developments | funding | emergencies</div></div>
+      </div>
+      <div class="card-body">
+        <div class="item">
+          <a class="headline" href="https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON618">Ebola disease caused by Bundibugyo virus - Democratic Republic of the Congo</a>
+          <p class="item-summary">WHO reports the outbreak expanded to 63 health zones in seven provinces, with 7,890 confirmed cases and 3,799 deaths as of Sept. 23. DRC risk remains very high; countries sharing land borders are assessed at high risk.</p>
+          <div class="item-meta"><span class="tag">Ebola</span><span class="tag">DRC</span><span class="tag">PHEIC</span><span class="status developing">Developing</span><a class="source" href="https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON618">WHO Disease Outbreak News</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://www.afro.who.int/countries/democratic-republic-of-congo/news/scaling-stay-ahead-ebola-outbreak">Scaling up to stay ahead of the Ebola outbreak</a>
+          <p class="item-summary">WHO Africa describes intensified case management, IPC, safe burials, surveillance, community engagement, diagnostics and logistics as new hotspots emerge. The Sept. 4 multisectoral plan requires US$1.3 billion over six months, underscoring emergency financing pressure.</p>
+          <div class="item-meta"><span class="tag">Response ops</span><span class="tag">Financing</span><span class="status developing">Developing</span><a class="source" href="https://www.afro.who.int/countries/democratic-republic-of-congo/news/scaling-stay-ahead-ebola-outbreak">WHO Africa</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://www.who.int/publications/m/item/global-respiratory-virus-activity--weekly-update-n--597">Global Respiratory Virus Activity: Weekly Update No. 597</a>
+          <p class="item-summary">WHO's week 38 update shows influenza positivity around 10% globally and stable, low SARS-CoV-2 positivity across most reporting countries. This is not a crisis signal, but it provides a baseline as northern hemisphere respiratory season begins.</p>
+          <div class="item-meta"><span class="tag">Respiratory viruses</span><span class="tag">Surveillance</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.who.int/publications/m/item/global-respiratory-virus-activity--weekly-update-n--597">WHO</a></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="section-label">By client</div>
+  <h2>Client Updates</h2>
+  <div class="client-grid">
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--gates)"></div>
+        <div><h3>Gates Foundation</h3><div class="sub">Immunization | polio | health delivery</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal / Partnership Signals</h4>
+          <div class="item">
+            <a class="headline" href="https://www.gavi.org/news/media-room/made-africa-new-measles-rapid-diagnostic-tests-mark-breakthrough-vaccination">Gates Foundation support helped advance first measles rapid diagnostic tests</a>
+            <p class="item-summary">Gavi says Gates Foundation contributed approximately US$7 million to the measles RDT development effort. Greg Widmyer, Gates Foundation Director of Immunization, frames the tests as a faster, more affordable way to identify cases, respond to outbreaks, and target vaccination.</p>
+            <div class="item-meta"><span class="tag">Immunization</span><span class="tag">Measles</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.gavi.org/news/media-room/made-africa-new-measles-rapid-diagnostic-tests-mark-breakthrough-vaccination">Gavi.org</a></div>
+          </div>
+          <div class="item">
+            <a class="headline" href="https://www.gatesfoundation.org/about/committed-grants/2026/10/inv-105853">Broad Institute, Inc. Grant</a>
+            <p class="item-summary">September Global Health grant of US$1.25 million to engineer next-generation oral poliovirus vaccines resistant to reversion and recombination. Why it matters: directly supports a safer vaccine toolkit for eradication endgame risks.</p>
+            <div class="item-meta"><span class="tag">Polio</span><span class="tag">Vaccine platform</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.gatesfoundation.org/about/committed-grants/2026/10/inv-105853">Gates Foundation</a></div>
+          </div>
+          <div class="item">
+            <a class="headline" href="https://www.gatesfoundation.org/about/committed-grants/2026/09/inv-097113">PATH Grant</a>
+            <p class="item-summary">September Global Development grant of US$14.66 million to fund clinical development of a new oral polio vaccine to protect against type 1 polio. The commitment aligns with the GPEI IMB's focus on finishing wild poliovirus transmission.</p>
+            <div class="item-meta"><span class="tag">Polio</span><span class="tag">Clinical development</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.gatesfoundation.org/about/committed-grants/2026/09/inv-097113">Gates Foundation</a></div>
+          </div>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <div class="item">
+            <a class="headline" href="https://www.gatesfoundation.org/about/committed-grants/2026/10/inv-111032">World Health Organization Grant</a>
+            <p class="item-summary">September Global Health grant of US$4.97 million supports country adoption of the Global Health Emergency Corps and strengthens the expert response workforce. The investment is relevant to WHO's ongoing Ebola and outbreak response load.</p>
+            <div class="item-meta"><span class="tag">Emergency response</span><span class="tag">WHO</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.gatesfoundation.org/about/committed-grants/2026/10/inv-111032">Gates Foundation</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--gavi)"></div>
+        <div><h3>Gavi</h3><div class="sub">Vaccine alliance | replenishment | country programs</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <div class="item">
+            <a class="headline" href="https://www.gavi.org/news/media-room/made-africa-new-measles-rapid-diagnostic-tests-mark-breakthrough-vaccination">Made in Africa: new measles rapid diagnostic tests mark breakthrough for vaccination efforts</a>
+            <p class="item-summary">Gavi approved deployment of the first measles RDTs, with up to 500,000 tests expected annually once the program is running and initial rollout planned in Senegal later in 2026. This is a high-signal Gavi 6.0 surveillance and outbreak-response item.</p>
+            <div class="item-meta"><span class="tag">Measles</span><span class="tag">Diagnostics</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.gavi.org/news/media-room/made-africa-new-measles-rapid-diagnostic-tests-mark-breakthrough-vaccination">Gavi.org</a></div>
+          </div>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <div class="item">
+            <a class="headline" href="https://polioeradication.org/news/gpei-welcomes-25th-report-of-the-independent-monitoring-board/">GPEI welcomes 25th report of the Independent Monitoring Board</a>
+            <p class="item-summary">The IMB highlights routine immunization and surveillance gaps in the remaining endemic polio countries, with financing constraints affecting essential health functions. For Gavi, the report reinforces the value of PEI-EPI integration and fragile-settings financing.</p>
+            <div class="item-meta"><span class="tag">Polio integration</span><span class="tag">Fragility</span><span class="status confirmed">Confirmed</span><a class="source" href="https://polioeradication.org/news/gpei-welcomes-25th-report-of-the-independent-monitoring-board/">GPEI</a></div>
+          </div>
+          <div class="item">
+            <a class="headline" href="https://www.who.int/bangladesh/news/detail/04-10-2026-with-who-and-partner-support--bangladesh-launches-independent-review-to-strengthen-national-immunization-programme">Bangladesh EPI review will examine vaccine supply, cold chain, coverage data and demand generation</a>
+            <p class="item-summary">Although WHO-led, the review maps closely to Gavi country-program priorities: service delivery, supply chain quality, outbreak preparedness and restoring measles/rubella elimination progress.</p>
+            <div class="item-meta"><span class="tag">Country programs</span><span class="tag">Cold chain</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.who.int/bangladesh/news/detail/04-10-2026-with-who-and-partner-support--bangladesh-launches-independent-review-to-strengthen-national-immunization-programme">WHO Bangladesh</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--loph)"></div>
+        <div><h3>Louisiana Office of Public Health</h3><div class="sub">PHUs | WIC | organizational change</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <div class="item">
+            <a class="headline" href="https://app.lla.state.la.us/publicreports.nsf/0/d4cabcf8b98961e486258e200074f9b9/$file/0000hrc8.pdf">Louisiana Department of Health - Office of Public Health - Oversight of Outreach and Participation - WIC</a>
+            <p class="item-summary">The June Legislative Auditor report becomes operationally salient this week because outreach requirements increase Oct. 1, 2026 for parishes with larger WIC coverage gaps. The audit found 56 of 100 clinics missed required monthly outreach in FFY 2025 and recommended stronger monthly review.</p>
+            <div class="item-meta"><span class="tag">WIC</span><span class="tag">PHU outreach</span><span class="tag">Audit</span><span class="status confirmed">Confirmed</span><a class="source" href="https://app.lla.state.la.us/publicreports.nsf/0/d4cabcf8b98961e486258e200074f9b9/$file/0000hrc8.pdf">Louisiana Legislative Auditor (PDF)</a></div>
+          </div>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <div class="item">
+            <a class="headline" href="https://ldh.la.gov/directory/category/486/">WIC Clinics</a>
+            <p class="item-summary">LDH's current WIC directory remains the best primary source for clinic locations, including parish health-unit WIC sites. No new statewide PHU closure, reopening or WIC clinic restructuring notice surfaced for Sep. 28-Oct. 4.</p>
+            <div class="item-meta"><span class="tag">Clinic access</span><span class="tag">Directory</span><span class="status confirmed">Confirmed</span><a class="source" href="https://ldh.la.gov/directory/category/486/">Louisiana Department of Health</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--stjude)"></div>
+        <div><h3>ALSAC / St. Jude</h3><div class="sub">Fundraising | organizational leadership</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <div class="item">
+            <a class="headline" href="https://www.stjude.org/media-resources/news-releases/2026-fundraising-news/childhood-cancer-awareness-month.html">Childhood Cancer Awareness Month mobilizes support across the U.S. for St. Jude Children's Research Hospital</a>
+            <p class="item-summary">ALSAC highlighted September fundraising through St. Jude Walks, national sponsors, retail partners, creators and the Relay for St. Jude campaign culminating in an Oct. 2 podcastathon. This fits the ALSAC fundraising lens and avoids routine research updates.</p>
+            <div class="item-meta"><span class="tag">Fundraising</span><span class="tag">Campaigns</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.stjude.org/media-resources/news-releases/2026-fundraising-news/childhood-cancer-awareness-month.html">St. Jude / ALSAC</a></div>
+          </div>
+          <div class="item">
+            <a class="headline" href="https://www.stjude.org/media-resources/news-releases/2026-medicine-science-news/charles-roberts-named-st-jude-ceo.html">Charles W.M. Roberts, MD, PhD, named president and CEO of St. Jude Children's Research Hospital</a>
+            <p class="item-summary">Major organizational leadership update: Roberts will become St. Jude's seventh president and CEO on Jan. 1, 2027 after an international search. ALSAC President and CEO Ike Anand said he welcomes Roberts' partnership with supporters and the shared mission.</p>
+            <div class="item-meta"><span class="tag">CEO transition</span><span class="tag">Leadership</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.stjude.org/media-resources/news-releases/2026-medicine-science-news/charles-roberts-named-st-jude-ceo.html">St. Jude</a></div>
+          </div>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <p class="empty">No significant external updates this week beyond ALSAC fundraising activity and major organizational leadership.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--rwjf)"></div>
+        <div><h3>Robert Wood Johnson Foundation</h3><div class="sub">Health equity | Medicaid | nursing workforce | SDOH</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <p class="empty">No significant updates this week.</p>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <div class="item">
+            <a class="headline" href="https://www.rwjf.org/en/grants/active-funding-opportunities/2026/connecting-champions-for-diversity-equity-inclusion-and-belonging.html">Connecting Champions for Diversity, Equity, Inclusion, and Belonging in the Health Professions</a>
+            <p class="item-summary">The late-September LOI deadline has passed, but the opportunity remains a useful near-term marker for RWJF's health-professions equity and workforce strategy. Applicants invited forward will be notified Nov. 6.</p>
+            <div class="item-meta"><span class="tag">Health equity</span><span class="tag">Workforce</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.rwjf.org/en/grants/active-funding-opportunities/2026/connecting-champions-for-diversity-equity-inclusion-and-belonging.html">RWJF</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>19 card items + 7 at-a-glance highlights | 13 primary sources | Generated for Sep 28-Oct 4, 2026</footer>
+
+</div>
+</body>
+</html>
