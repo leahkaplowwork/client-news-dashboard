@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Client Intelligence Brief - Oct 19-25, 2026</title>
+  <style>
+    :root {
+      --bg: #f4f6f9; --surface: #ffffff; --text: #111827; --muted: #4b5563;
+      --light: #9ca3af; --border: #e5e7eb; --link: #1d4ed8; --link-hover: #1e40af;
+      --tier1-bg: #eff6ff; --tier1-border: #3b82f6;
+      --urgent: #b91c1c; --urgent-bg: #fef2f2; --watch: #b45309; --watch-bg: #fffbeb;
+      --gates: #0d9488; --gavi: #0284c7; --stjude: #7c3aed; --loph: #ca8a04; --rwjf: #059669;
+      --imm: #4f46e5; --gph: #be123c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; font-size: 15px; }
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+    header { margin-bottom: 1.75rem; padding-bottom: 1.25rem; border-bottom: 2px solid var(--border); }
+    header h1 { font-size: 1.85rem; font-weight: 700; letter-spacing: -0.02em; }
+    .meta { color: var(--muted); font-size: 0.9rem; margin-top: 0.35rem; }
+    .meta span + span::before { content: " · "; }
+    .research-note { background: #fff7ed; border: 1px solid #fed7aa; border-left: 4px solid #f97316; border-radius: 8px; color: #7c2d12; margin: 0 0 1.5rem; padding: 0.85rem 1rem; font-size: 0.9rem; }
+    section { margin-bottom: 2rem; }
+    .section-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--light); margin-bottom: 0.5rem; }
+    h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem; }
+    .tier-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.15rem 0.5rem; border-radius: 3px; background: var(--tier1-bg); color: var(--tier1-border); }
+    a.headline { color: var(--text); text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
+    a.headline:hover { color: var(--link); border-bottom-color: var(--link); }
+    a.source { color: var(--link); font-size: 0.8rem; text-decoration: none; }
+    a.source:hover { text-decoration: underline; }
+    .glance { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .glance-item { display: grid; grid-template-columns: 72px 1fr; gap: 0.85rem; padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--border); align-items: start; }
+    .glance-item:last-child { border-bottom: none; }
+    .priority { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.2rem 0.5rem; border-radius: 4px; text-align: center; }
+    .priority.urgent { background: var(--urgent-bg); color: var(--urgent); }
+    .priority.watch { background: var(--watch-bg); color: var(--watch); }
+    .priority.info { background: #eff6ff; color: #1d4ed8; }
+    .global-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .card.tier1 { border-top: 3px solid var(--tier1-border); }
+    .card-header { padding: 0.9rem 1.15rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.65rem; }
+    .card-accent { width: 4px; align-self: stretch; border-radius: 2px; flex-shrink: 0; min-height: 2rem; }
+    .card-header h3 { font-size: 1rem; font-weight: 700; }
+    .card-header .sub { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
+    .card-body { padding: 0.25rem 1.15rem 1rem; }
+    .subsection { margin-top: 0.85rem; }
+    .subsection h4 { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--light); padding-bottom: 0.35rem; margin-bottom: 0.25rem; border-bottom: 1px solid #f3f4f6; }
+    .item { padding: 0.75rem 0; border-bottom: 1px solid #f3f4f6; }
+    .item:last-child { border-bottom: none; }
+    .item-summary { font-size: 0.88rem; color: var(--muted); margin: 0.3rem 0 0.45rem; }
+    .item-meta { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
+    .tag { background: #f3f4f6; color: var(--muted); font-size: 0.72rem; font-weight: 600; padding: 0.12rem 0.45rem; border-radius: 3px; }
+    .status { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+    .status.confirmed { color: #047857; }
+    .status.developing { color: var(--watch); }
+    .client-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .empty { font-size: 0.88rem; color: var(--light); font-style: italic; padding: 0.5rem 0; }
+    footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--light); text-align: center; }
+    @media (max-width: 800px) { .global-row, .client-grid { grid-template-columns: 1fr; } .glance-item { grid-template-columns: 1fr; gap: 0.4rem; } }
+    @media print { body { background: white; font-size: 11px; } .wrap { padding: 0; } a.headline, a.source { color: inherit; } .card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Weekly Client Intelligence Brief</h1>
+  <p class="meta"><span>Reporting period: Oct 19-25, 2026</span><span>Generated: Sunday, Oct 25, 2026 18:01 UTC</span></p>
+</header>
+
+<div class="research-note">
+  Primary-source screen for the past seven days found no significant, item-specific announcements matching the client rules. Secondary snippets surfaced Ebola-preparedness chatter, but those items were not promoted as headlines without a matching official source page.
+</div>
+
+<section>
+  <div class="section-label">Start here</div>
+  <h2>At a Glance</h2>
+  <div class="glance">
+    <div class="glance-item">
+      <span class="priority info">Update</span>
+      <div><a class="headline" href="https://www.who.int/news">WHO official news channels showed no significant new immunization headline for Oct 19-25</a> - keep monitoring routine-immunization coverage, vaccine prequalification, and outbreak-related vaccination updates.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority watch">Watch</span>
+      <div><a class="headline" href="https://www.who.int/emergencies/disease-outbreak-news">WHO Disease Outbreak News remains the primary channel to watch for Ebola and other public-health emergency updates</a> - secondary reports flagged Nigeria preparedness activity, but no item was included without a primary-source match.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">Update</span>
+      <div><a class="headline" href="https://www.gavi.org/news/media-room">Gavi Media Room had no new board, replenishment, AVMA, or country-program announcement surfaced for the week</a> - next high-value signals remain Gavi 6.0 implementation, supply chain execution, and replenishment financing.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">Update</span>
+      <div><a class="headline" href="https://polioeradication.org/news/">GPEI News did not surface a new official polio-eradication announcement for Oct 19-25</a> - continue to watch Afghanistan/Pakistan endemic corridors and any funding or campaign-shift statements.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">Update</span>
+      <div><a class="headline" href="https://www.gatesfoundation.org/ideas/media-center/press-releases">Gates Foundation press releases showed no new immunization, polio, or health-delivery announcement in the window</a> - Gates-related watchpoints remain GPEI financing, delivery systems, and zero-dose partnerships.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">Update</span>
+      <div><a class="headline" href="https://ldh.la.gov/news">Louisiana LDH News did not surface a new PHU, WIC, or OPH organizational update for Oct 19-25</a> - no general state-health items were included because they did not meet the PHU/WIC/org-change rule.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">Update</span>
+      <div><a class="headline" href="https://www.stjude.org/media-resources/news-releases.html">ALSAC/St. Jude official news showed no new fundraising or leadership announcement in the reporting window</a> - routine clinical or research updates were excluded under the playbook.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Tier 1 priority</div>
+  <h2>Global Topics <span class="tier-badge">Priority</span></h2>
+  <div class="global-row">
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--imm)"></div>
+        <div><h3>Immunization Pulse</h3><div class="sub">Pipeline · coverage · outbreaks · partners · donors</div></div>
+      </div>
+      <div class="card-body">
+        <div class="item">
+          <a class="headline" href="https://www.who.int/news">No significant WHO immunization news item found this week</a>
+          <p class="item-summary">Searches prioritized WHO immunization coverage, vaccine prequalification, measles/outbreak vaccination, and partner campaign updates. No primary-source headline in the Oct 19-25 window met the threshold for inclusion.</p>
+          <div class="item-meta"><span class="tag">Coverage</span><span class="tag">Primary source screen</span><span class="status confirmed">Reviewed</span><a class="source" href="https://www.who.int/news">WHO News</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://www.gavi.org/news-stories">No significant Gavi immunization story surfaced this week</a>
+          <p class="item-summary">No new primary Gavi story was found on vaccine availability, country launches, AVMA, or Gavi 6.0 implementation during the reporting period.</p>
+          <div class="item-meta"><span class="tag">Gavi 6.0</span><span class="tag">Vaccine alliance</span><span class="status confirmed">Reviewed</span><a class="source" href="https://www.gavi.org/news-stories">Gavi News &amp; Stories</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://polioeradication.org/news/">No significant GPEI polio update found this week</a>
+          <p class="item-summary">No official GPEI item was identified for Afghanistan, Pakistan, funding, or campaign operations within Oct 19-25. Keep this on watch because polio remains a priority Gates/Gavi overlap.</p>
+          <div class="item-meta"><span class="tag">Polio</span><span class="tag">GPEI</span><span class="status confirmed">Reviewed</span><a class="source" href="https://polioeradication.org/news/">GPEI News</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--gph)"></div>
+        <div><h3>Global Public Health</h3><div class="sub">Major developments · funding · emergencies</div></div>
+      </div>
+      <div class="card-body">
+        <div class="item">
+          <a class="headline" href="https://www.who.int/emergencies/disease-outbreak-news">No WHO Disease Outbreak News item was promoted without a primary-source match</a>
+          <p class="item-summary">Secondary snippets suggested Ebola-preparedness activity in Nigeria, but the dashboard excludes those details until WHO, NCDC, Africa CDC, or another official source publishes a matching primary update.</p>
+          <div class="item-meta"><span class="tag">Emergency ops</span><span class="tag">Ebola watch</span><span class="status developing">Developing</span><a class="source" href="https://www.who.int/emergencies/disease-outbreak-news">WHO Disease Outbreak News</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://africacdc.org/news/">No significant Africa CDC primary update found this week</a>
+          <p class="item-summary">No official Africa CDC announcement surfaced that met the dashboard threshold for cross-border outbreak response, emergency coordination, or financing shifts in the reporting window.</p>
+          <div class="item-meta"><span class="tag">Africa CDC</span><span class="tag">Surveillance</span><span class="status confirmed">Reviewed</span><a class="source" href="https://africacdc.org/news/">Africa CDC News</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://www.theglobalfund.org/en/news/">No significant Global Fund health-systems funding update found this week</a>
+          <p class="item-summary">No primary Global Fund item surfaced during Oct 19-25 that changed the outlook for health systems funding, emergency response, or delivery capacity.</p>
+          <div class="item-meta"><span class="tag">Health systems</span><span class="tag">Funding</span><span class="status confirmed">Reviewed</span><a class="source" href="https://www.theglobalfund.org/en/news/">Global Fund News</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">By client</div>
+  <h2>Client Updates</h2>
+  <div class="client-grid">
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--gates)"></div>
+        <div><h3>Gates Foundation</h3><div class="sub">Immunization · polio · health delivery</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <p class="empty">No significant updates this week.</p>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <div class="item">
+            <a class="headline" href="https://www.gatesfoundation.org/ideas/media-center/press-releases">No Gates Foundation primary announcement found for immunization, polio, or health delivery</a>
+            <p class="item-summary">The official press-release channel did not surface a new client-relevant item during Oct 19-25. External Gates-relevant watchpoints remain GPEI financing pressure and Gavi delivery-system execution.</p>
+            <div class="item-meta"><span class="tag">Primary source screen</span><span class="tag">Polio watch</span><span class="status confirmed">Reviewed</span><a class="source" href="https://www.gatesfoundation.org/ideas/media-center/press-releases">Gates Foundation Press Releases</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--gavi)"></div>
+        <div><h3>Gavi</h3><div class="sub">Vaccine alliance · replenishment · country programs</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <div class="item">
+            <a class="headline" href="https://www.gavi.org/news/media-room">No Gavi media-room announcement found for board, replenishment, AVMA, or country programs</a>
+            <p class="item-summary">No primary Gavi announcement surfaced in the reporting week. Keep monitoring for Gavi 6.0 operational decisions, donor pledges, and fragile-settings financing.</p>
+            <div class="item-meta"><span class="tag">Board</span><span class="tag">Replenishment</span><span class="status confirmed">Reviewed</span><a class="source" href="https://www.gavi.org/news/media-room">Gavi Media Room</a></div>
+          </div>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <p class="empty">No significant updates this week.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--loph)"></div>
+        <div><h3>Louisiana Office of Public Health</h3><div class="sub">PHUs · WIC · organizational change</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <div class="item">
+            <a class="headline" href="https://ldh.la.gov/news">No LDH primary update found for OPH organizational changes, PHU operations, or WIC oversight</a>
+            <p class="item-summary">No Oct 19-25 primary-source item met the Louisiana OPH curation rule. General public-health items were excluded unless they directly affected PHU or WIC operations.</p>
+            <div class="item-meta"><span class="tag">PHU</span><span class="tag">WIC</span><span class="status confirmed">Reviewed</span><a class="source" href="https://ldh.la.gov/news">LDH News</a></div>
+          </div>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <div class="item">
+            <a class="headline" href="https://ldh.la.gov/page/wic">WIC remains the primary OPH watch area; no new Louisiana program update found this week</a>
+            <p class="item-summary">Continue to watch WIC participation, clinic access, and PHU outreach actions. No new official Louisiana WIC or PHU update was identified for this dashboard window.</p>
+            <div class="item-meta"><span class="tag">WIC access</span><span class="tag">OPH oversight</span><span class="status confirmed">Reviewed</span><a class="source" href="https://ldh.la.gov/page/wic">Louisiana WIC</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--stjude)"></div>
+        <div><h3>ALSAC / St. Jude</h3><div class="sub">Fundraising · organizational leadership</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <div class="item">
+            <a class="headline" href="https://www.stjude.org/media-resources/news-releases.html">No ALSAC fundraising, board, or executive-leadership announcement found this week</a>
+            <p class="item-summary">The official St. Jude/ALSAC news channel did not surface a new fundraising or leadership item for Oct 19-25. Routine clinical-trial and lab-science updates were excluded.</p>
+            <div class="item-meta"><span class="tag">Fundraising</span><span class="tag">Leadership</span><span class="status confirmed">Reviewed</span><a class="source" href="https://www.stjude.org/media-resources/news-releases.html">St. Jude News Releases</a></div>
+          </div>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <p class="empty">No significant external updates this week.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--rwjf)"></div>
+        <div><h3>Robert Wood Johnson Foundation</h3><div class="sub">Health equity · Medicaid · nursing workforce · SDOH</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <div class="item">
+            <a class="headline" href="https://www.rwjf.org/en/about-rwjf/newsroom.html">No high-signal RWJF newsroom update found for health equity, Medicaid, or nursing workforce</a>
+            <p class="item-summary">No official RWJF announcement surfaced in the Oct 19-25 window that met the client-threshold for inclusion.</p>
+            <div class="item-meta"><span class="tag">Health equity</span><span class="tag">Policy</span><span class="status confirmed">Reviewed</span><a class="source" href="https://www.rwjf.org/en/about-rwjf/newsroom.html">RWJF Newsroom</a></div>
+          </div>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <p class="empty">No significant external updates this week.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>0 confirmed news items · 12 official source channels checked · Tier 1 lead: Immunization, Global Public Health, Gates, Gavi</footer>
+
+</div>
+</body>
+</html>
