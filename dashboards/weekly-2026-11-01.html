@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Client Intelligence Brief - Oct 26-Nov 1, 2026</title>
+  <style>
+    :root {
+      --bg: #f4f6f9; --surface: #ffffff; --text: #111827; --muted: #4b5563;
+      --light: #9ca3af; --border: #e5e7eb; --link: #1d4ed8; --link-hover: #1e40af;
+      --tier1-bg: #eff6ff; --tier1-border: #3b82f6;
+      --urgent: #b91c1c; --urgent-bg: #fef2f2; --watch: #b45309; --watch-bg: #fffbeb;
+      --gates: #0d9488; --gavi: #0284c7; --stjude: #7c3aed; --loph: #ca8a04; --rwjf: #059669;
+      --imm: #4f46e5; --gph: #be123c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; font-size: 15px; }
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+    header { margin-bottom: 1.75rem; padding-bottom: 1.25rem; border-bottom: 2px solid var(--border); }
+    header h1 { font-size: 1.85rem; font-weight: 700; letter-spacing: -0.02em; }
+    .meta { color: var(--muted); font-size: 0.9rem; margin-top: 0.35rem; }
+    .meta span + span::before { content: " · "; }
+    .method-note { margin-top: 0.85rem; padding: 0.75rem 0.9rem; background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; color: #7c2d12; font-size: 0.86rem; }
+    section { margin-bottom: 2rem; }
+    .section-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--light); margin-bottom: 0.5rem; }
+    h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem; }
+    .tier-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.15rem 0.5rem; border-radius: 3px; background: var(--tier1-bg); color: var(--tier1-border); }
+    a.headline { color: var(--text); text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
+    a.headline:hover { color: var(--link); border-bottom-color: var(--link); }
+    a.source { color: var(--link); font-size: 0.8rem; text-decoration: none; }
+    a.source:hover { text-decoration: underline; }
+    .glance { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .glance-item { display: grid; grid-template-columns: 72px 1fr; gap: 0.85rem; padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--border); align-items: start; }
+    .glance-item:last-child { border-bottom: none; }
+    .priority { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.2rem 0.5rem; border-radius: 4px; text-align: center; }
+    .priority.urgent { background: var(--urgent-bg); color: var(--urgent); }
+    .priority.watch { background: var(--watch-bg); color: var(--watch); }
+    .priority.info { background: #eff6ff; color: #1d4ed8; }
+    .global-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .card.tier1 { border-top: 3px solid var(--tier1-border); }
+    .card-header { padding: 0.9rem 1.15rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.65rem; }
+    .card-accent { width: 4px; align-self: stretch; border-radius: 2px; flex-shrink: 0; min-height: 2rem; }
+    .card-header h3 { font-size: 1rem; font-weight: 700; }
+    .card-header .sub { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
+    .card-body { padding: 0.25rem 1.15rem 1rem; }
+    .subsection { margin-top: 0.85rem; }
+    .subsection h4 { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--light); padding-bottom: 0.35rem; margin-bottom: 0.25rem; border-bottom: 1px solid #f3f4f6; }
+    .item { padding: 0.75rem 0; border-bottom: 1px solid #f3f4f6; }
+    .item:last-child { border-bottom: none; }
+    .item-summary { font-size: 0.88rem; color: var(--muted); margin: 0.3rem 0 0.45rem; }
+    .item-meta { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
+    .tag { background: #f3f4f6; color: var(--muted); font-size: 0.72rem; font-weight: 600; padding: 0.12rem 0.45rem; border-radius: 3px; }
+    .status { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+    .status.confirmed { color: #047857; }
+    .status.developing { color: var(--watch); }
+    .client-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .empty { font-size: 0.88rem; color: var(--light); font-style: italic; padding: 0.5rem 0; }
+    footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--light); text-align: center; }
+    @media (max-width: 800px) { .global-row, .client-grid { grid-template-columns: 1fr; } .glance-item { grid-template-columns: 1fr; gap: 0.4rem; } }
+    @media print { body { background: white; font-size: 11px; } .wrap { padding: 0; } a.headline, a.source { color: inherit; } .card { break-inside: avoid; } .method-note { border-color: #ccc; background: white; color: inherit; } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Weekly Client Intelligence Brief</h1>
+  <p class="meta"><span>Reporting period: Oct 26-Nov 1, 2026</span><span>Generated: Sunday, Nov 1, 2026, 18:01 UTC</span></p>
+  <div class="method-note">Primary-source searches prioritized Immunization, Global Public Health, Gates Foundation, and Gavi. For this future-dated window, the only high-signal primary-source news found inside Oct 26-Nov 1 was the official INRB/INSP Bundibugyo Ebola data/dashboard refresh; client sections without qualifying primary-source updates are marked explicitly.</div>
+</header>
+
+<section>
+  <div class="section-label">Start here</div>
+  <h2>At a Glance</h2>
+  <div class="glance">
+    <div class="glance-item">
+      <span class="priority urgent">Watch</span>
+      <div><a class="headline" href="https://github.com/INRB-UMIE/BDBV2026-Data">Official DRC Bundibugyo Ebola data refresh adds SitRep 168</a> - INRB/INSP's public outbreak data repo lists Oct 30 builds for SitRep 167 and SitRep 168, keeping the BDBV response in active surveillance mode.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority watch">Watch</span>
+      <div><a class="headline" href="https://github.com/INRB-UMIE/BDBV2026-Epidemic_Dashboard">INRB/INSP epidemic dashboard rebuilds output on Nov 1</a> - dashboard pages for trends, spatial risk, surveillance testing, clinical symptoms, and genomic epidemiology were rebuilt from the latest upstream outbreak data.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">Immun.</span>
+      <div><a class="headline" href="https://github.com/INRB-UMIE/BDBV2026-Data">Immunization watch centers on BDBV countermeasure gap</a> - no new Gavi/WHO/UNICEF campaign or replenishment announcement surfaced in the window; the BDBV data refresh is the relevant vaccine/countermeasure signal.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">Gates</span>
+      <div><a class="headline" href="https://www.gatesfoundation.org/ideas/media-center">No significant Gates Foundation primary-source updates this week</a> - no qualifying Gates-owned immunization, polio, leadership, or health-delivery news was found for Oct 26-Nov 1.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">Gavi</span>
+      <div><a class="headline" href="https://www.gavi.org/news/media-room">No significant Gavi primary-source updates this week</a> - no qualifying Gavi media-room update was found in the reporting window.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">OPH</span>
+      <div><a class="headline" href="https://ldh.la.gov/news">No Louisiana OPH PHU/WIC organizational update found</a> - no qualifying LDH or audit-source update on parish health units, WIC, or OPH structure surfaced this week.</div>
+    </div>
+    <div class="glance-item">
+      <span class="priority info">Tier 2</span>
+      <div><a class="headline" href="https://www.stjude.org/media-resources/news-releases/2026-fundraising-news">No ALSAC/St. Jude fundraising or leadership update found</a> - ALSAC/St. Jude and RWJF searches did not surface qualifying primary-source items this week.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Tier 1 priority</div>
+  <h2>Global Topics <span class="tier-badge">Priority</span></h2>
+  <div class="global-row">
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--imm)"></div>
+        <div><h3>Immunization Pulse</h3><div class="sub">Pipeline · coverage · outbreaks · partners · donors</div></div>
+      </div>
+      <div class="card-body">
+        <div class="item">
+          <a class="headline" href="https://github.com/INRB-UMIE/BDBV2026-Data">INRB/INSP BDBV data refresh keeps outbreak-vaccine gap in view</a>
+          <p class="item-summary">The Oct 30 data build adds SitRep 168 for the 2026 Bundibugyo Ebola outbreak. Because BDBV has no widely licensed vaccine pathway comparable to Zaire ebolavirus response stockpiles, this remains the week's primary immunization-adjacent signal.</p>
+          <div class="item-meta"><span class="tag">Outbreak vaccines</span><span class="tag">BDBV</span><span class="status developing">Developing</span><a class="source" href="https://github.com/INRB-UMIE/BDBV2026-Data">INRB/INSP data repo</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://www.gavi.org/news/media-room">No significant Gavi/WHO/UNICEF immunization update found in the window</a>
+          <p class="item-summary">Primary-source searches did not surface a qualifying Oct 26-Nov 1 announcement on coverage, replenishment, Gavi 6.0, campaign operations, or vaccine prequalification. Continue monitoring partner media rooms for late-indexed items.</p>
+          <div class="item-meta"><span class="tag">Research note</span><span class="tag">Primary sources</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.gavi.org/news/media-room">Gavi media room</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--gph)"></div>
+        <div><h3>Global Public Health</h3><div class="sub">Major developments · funding · emergencies</div></div>
+      </div>
+      <div class="card-body">
+        <div class="item">
+          <a class="headline" href="https://github.com/INRB-UMIE/BDBV2026-Data">Official BDBV outbreak data repo publishes Oct 30 SitRep 168 build</a>
+          <p class="item-summary">The INRB/INSP-led repository lists Oct 27, Oct 28, and Oct 30 releases inside the reporting window, including SitRep 164, 166, 167, and 168. The update is a primary public data signal for the ongoing DRC Bundibugyo Ebola response.</p>
+          <div class="item-meta"><span class="tag">Ebola</span><span class="tag">Surveillance</span><span class="status developing">Developing</span><a class="source" href="https://github.com/INRB-UMIE/BDBV2026-Data">INRB/INSP data repo</a></div>
+        </div>
+        <div class="item">
+          <a class="headline" href="https://github.com/INRB-UMIE/BDBV2026-Epidemic_Dashboard">INRB/INSP outbreak dashboard rebuilds public output on Nov 1</a>
+          <p class="item-summary">The dashboard repository shows refreshed output pages on Nov 1 and late-week updates to scripts/locales for dynamic completeness estimation. That makes the dashboard the best primary surface for response trend, spatial risk, and surveillance-testing views.</p>
+          <div class="item-meta"><span class="tag">Public health emergency</span><span class="tag">Data dashboard</span><span class="status developing">Developing</span><a class="source" href="https://github.com/INRB-UMIE/BDBV2026-Epidemic_Dashboard">INRB/INSP dashboard</a></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="section-label">By client</div>
+  <h2>Client Updates</h2>
+  <div class="client-grid">
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--gates)"></div>
+        <div><h3>Gates Foundation</h3><div class="sub">Immunization · polio · health delivery</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <div class="item">
+            <a class="headline" href="https://www.gatesfoundation.org/ideas/media-center">No significant Gates Foundation primary-source updates this week</a>
+            <p class="item-summary">No qualifying Gates-owned leadership, polio, immunization, or health-delivery announcement surfaced for Oct 26-Nov 1.</p>
+            <div class="item-meta"><span class="tag">Research note</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.gatesfoundation.org/ideas/media-center">Gates Foundation media center</a></div>
+          </div>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <div class="item">
+            <a class="headline" href="https://github.com/INRB-UMIE/BDBV2026-Data">BDBV data refresh underscores outbreak data and countermeasure needs</a>
+            <p class="item-summary">The active INRB/INSP data stream is relevant to global health delivery and vaccine R&D monitoring, but no Gates-specific engagement was identified in primary sources this week.</p>
+            <div class="item-meta"><span class="tag">Outbreak response</span><span class="tag">Health delivery</span><span class="status developing">Developing</span><a class="source" href="https://github.com/INRB-UMIE/BDBV2026-Data">INRB/INSP data repo</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tier1">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--gavi)"></div>
+        <div><h3>Gavi</h3><div class="sub">Vaccine alliance · replenishment · country programs</div></div>
+      </div>
+      <div class="card-body">
+        <div class="subsection"><h4>Internal</h4>
+          <div class="item">
+            <a class="headline" href="https://www.gavi.org/news/media-room">No significant Gavi primary-source updates this week</a>
+            <p class="item-summary">No qualifying Gavi media-room update on replenishment, Gavi 6.0 implementation, AVMA, supply chains, or country programs was found for Oct 26-Nov 1.</p>
+            <div class="item-meta"><span class="tag">Research note</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.gavi.org/news/media-room">Gavi media room</a></div>
+          </div>
+        </div>
+        <div class="subsection"><h4>Relevant External</h4>
+          <div class="item">
+            <a class="headline" href="https://github.com/INRB-UMIE/BDBV2026-Epidemic_Dashboard">BDBV dashboard remains the main vaccine-alliance watch item</a>
+            <p class="item-summary">The refreshed dashboard is relevant to future outbreak vaccine financing and delivery planning, but no primary source tied Gavi to a new BDBV decision this week.</p>
+            <div class="item-meta"><span class="tag">Outbreak vaccines</span><span class="tag">Financing watch</span><span class="status developing">Developing</span><a class="source" href="https://github.com/INRB-UMIE/BDBV2026-Epidemic_Dashboard">INRB/INSP dashboard</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--loph)"></div>
+        <div><h3>Louisiana Office of Public Health</h3><div class="sub">PHUs · WIC · organizational change</div></div>
+      </div>
+      <div class="card-body">
+        <div class="item">
+          <a class="headline" href="https://ldh.la.gov/news">No significant updates this week on PHUs, WIC, or OPH organizational changes</a>
+          <p class="item-summary">Primary-source searches did not find qualifying LDH or Louisiana Legislative Auditor updates for parish health unit operations, WIC oversight/participation, or OPH structure during Oct 26-Nov 1.</p>
+          <div class="item-meta"><span class="tag">PHUs</span><span class="tag">WIC</span><span class="status confirmed">Confirmed</span><a class="source" href="https://ldh.la.gov/news">Louisiana Department of Health</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--stjude)"></div>
+        <div><h3>ALSAC / St. Jude</h3><div class="sub">Fundraising · organizational leadership</div></div>
+      </div>
+      <div class="card-body">
+        <div class="item">
+          <a class="headline" href="https://www.stjude.org/media-resources/news-releases/2026-fundraising-news">No significant ALSAC fundraising or leadership updates this week</a>
+          <p class="item-summary">No qualifying ALSAC fundraising, board, executive, campaign, or major St. Jude organizational announcement was found in primary sources for Oct 26-Nov 1. Routine research and clinical updates were excluded per the curation rule.</p>
+          <div class="item-meta"><span class="tag">Fundraising</span><span class="tag">Leadership</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.stjude.org/media-resources/news-releases/2026-fundraising-news">St. Jude fundraising news</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-accent" style="background:var(--rwjf)"></div>
+        <div><h3>Robert Wood Johnson Foundation</h3><div class="sub">Health equity · Medicaid · nursing workforce · SDOH</div></div>
+      </div>
+      <div class="card-body">
+        <div class="item">
+          <a class="headline" href="https://www.rwjf.org/en/about-rwjf/newsroom.html">No significant RWJF primary-source updates this week</a>
+          <p class="item-summary">No qualifying RWJF grant, research agenda, leadership, Medicaid, health equity, or nursing workforce update surfaced in primary-source searches for Oct 26-Nov 1.</p>
+          <div class="item-meta"><span class="tag">Research note</span><span class="status confirmed">Confirmed</span><a class="source" href="https://www.rwjf.org/en/about-rwjf/newsroom.html">RWJF newsroom</a></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>12 linked dashboard items · 7 primary source surfaces · Generated by Cursor Automation on Nov 1, 2026</footer>
+</div>
+</body>
+</html>
